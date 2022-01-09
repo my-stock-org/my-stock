@@ -50,6 +50,7 @@ public class Produits extends JFrame  implements Fenetre{
 		
 		this.setVisible(true);
 	}
+	 
 	public static void main(String[] args) {
 		Produits prd = new Produits();
 //		prd.setVisible(true);
