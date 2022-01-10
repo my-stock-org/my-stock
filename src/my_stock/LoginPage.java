@@ -11,10 +11,15 @@ import java.sql.SQLException;
 
 
 public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
+
+	private String accountType; 
 	private String email;
 	private String password;
+	
 	private static LoginPage instance = null;
+	Welcome back= null;
 	Patron patron = null;
+	
 	BdConnection connection = BdConnection.getInstance();
 	
 	Container container=getContentPane();
@@ -24,22 +29,23 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
     JTextField userTextField=new JTextField();
     JPasswordField passwordField=new JPasswordField();
     JButton loginButton=new JButton("Connexion");
-    JButton resetButton=new JButton("Reset");
+    JButton cancelButton=new JButton("Annuler");
     JCheckBox showPassword=new JCheckBox("voir le mot de passe");
 	 
-	 private LoginPage() {
+	 private LoginPage(String accountType) {
 			super();
 			setLayoutManager();
 	        setLocationAndSize();
 	        addComponentsToContainer();
 	        addActionEvent();
 			proprieteFenetre();
+			this.accountType = accountType;
 		}
 	 
-	static LoginPage getInstance() 
+	static LoginPage getInstance(String accountType) 
 		{
 			if (instance == null) 
-					instance = new LoginPage();
+					instance = new LoginPage(accountType);
 			return instance;
 		}
 	
@@ -61,9 +67,10 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	 public void proprieteFenetre(){
 		    this.setTitle("Connexion");
 	        this.setVisible(true);
-	        this.setBounds(10,10,370,600);
+	        this.setBounds(10,10,370,500);
 	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        this.setResizable(false);
+	        this.setLocationRelativeTo(null);
 	 
 			
 			this.setVisible(true);
@@ -91,39 +98,26 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 		                	JOptionPane.showMessageDialog(this, "Email ou mot de passe invalide");
 		                }
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
-	           
-                
-//	            if (userText.equalsIgnoreCase("mehtab") && pwdText.equalsIgnoreCase("12345")) {
-//	                JOptionPane.showMessageDialog(this, "Login Successful");
-//	            } else {
-//	                JOptionPane.showMessageDialog(this, "Email ou mot de passe invalide");
-//	            }
 	 
 	        }
-	        //Coding Part of RESET button
-	        if (e.getSource() == resetButton) {
-	            userTextField.setText("");
-	            passwordField.setText("");
+	        if (e.getSource() == cancelButton) {
+	        	this.dispose();
+	            back = Welcome.getInstance();
 	        }
-	       //Coding Part of showPassword JCheckBox
-	        if (e.getSource() == showPassword) {
-	            if (showPassword.isSelected()) {
+	        if (e.getSource() == showPassword) 
+	            if (showPassword.isSelected()) 
 	                passwordField.setEchoChar((char) 0);
-	            } else {
+	            else 
 	                passwordField.setEchoChar('*');
-	            }
-	        }
+	        
 	 
 	 
 	    }
 	 
 	  public void setLayoutManager()
 	   {
-	       //Setting layout manager of Container to null
 	       container.setLayout(null);
 	   }
 	  
@@ -136,7 +130,7 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	       passwordField.setBounds(150,220,150,30);
 	       showPassword.setBounds(150,250,150,30);
 	       loginButton.setBounds(50,300,100,30);
-	       resetButton.setBounds(200,300,100,30);
+	       cancelButton.setBounds(200,300,100,30);
 	 
 	 
 	   }
@@ -149,11 +143,11 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	       container.add(passwordField);
 	       container.add(showPassword);
 	       container.add(loginButton);
-	       container.add(resetButton);
+	       container.add(cancelButton);
 	   }
 	   public void addActionEvent() {
 	        loginButton.addActionListener(this);
-	        resetButton.addActionListener(this);
+	        cancelButton.addActionListener(this);
 	        showPassword.addActionListener(this);
 	    }
 

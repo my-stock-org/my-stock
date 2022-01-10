@@ -7,8 +7,7 @@ public class Accueil {
 		BdConnection testConnection = BdConnection.getInstance();;
 		
 		
-		LoginPage login = null;
-		LoginPage.getInstance();
+		Welcome welcome = Welcome.getInstance();
 	}
 
 
