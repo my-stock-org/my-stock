@@ -4,7 +4,7 @@ package my_stock;
 public class Accueil {
 
 	public static void main(String[] args) {
-		BdConnection testConnection = BdConnection.getInstance();;
+		// TODO Auto-generated method stub
 		
 		
 		Welcome welcome = Welcome.getInstance();
