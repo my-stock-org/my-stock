@@ -1,25 +1,20 @@
-package my_stock;
+package Proprietes;
 
 public class User {
-	static User instance= null;
-	protected Integer id;
+	protected int id;
 	protected String nom;
 	protected String password;
 	
 	
-	private User(Integer id,String nom, String password) {
+	 User(int id,String nom, String password) {
 		this.id = id;
 		this.nom = nom;
 		this.password = password;
 	}
 	
-	public static User getInstance(Integer id,String nom, String password) {
-		if(instance == null)
-				instance = new User(id, nom, password);
-		return instance;
-	}
 	
-	Integer getId() {
+	//Getters
+	int getId() {
 		return this.id;
 	}
 	
@@ -32,8 +27,14 @@ public class User {
 	}
 	
 	
+	
+	//Setters
 	void setNom(String name) {
 		this.nom = name;
+	}
+	
+	void setPassword(String password) {
+		this.password = password;
 	}
 
 }
