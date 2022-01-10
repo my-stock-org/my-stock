@@ -1,4 +1,4 @@
-package my_stock;
+package Frame;
 
 public class Clients {
 

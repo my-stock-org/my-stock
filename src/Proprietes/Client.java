@@ -1,4 +1,4 @@
-package Props;
+package Proprietes;
 
 public class Client {
 	private String nom;
