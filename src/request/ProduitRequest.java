@@ -62,7 +62,7 @@ public class ProduitRequest {
 	}
 	public  void Delete(String nom) {
 		try {
-			String sq="delete from produit where nomprod='"+nom+"'";
+			String sq="delete from produit where nom='"+nom+"'";
 
 			st= conn.createStatement();
 			if(JOptionPane.showConfirmDialog(null,"Voulez-vous supprimer ?",null,JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION){
@@ -83,10 +83,10 @@ public class ProduitRequest {
 	}
 	public  void AjouterQuantite(String nom, int quantite) {
 		try {
-			String sq="update produit set stock=stock+'"+quantite+"' where nomprod='"+nom+"'";
+			String sq="update produit set stock=stock+'"+quantite+"' where nom='"+nom+"'";
 			
 			st= conn.createStatement();
-			if(JOptionPane.showConfirmDialog(null,"Voulez-vous ajoutez cette quantité?",null,JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION){
+			if(JOptionPane.showConfirmDialog(null,"Voulez-vous ajoutez la quantité de ce produit?",null,JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION){
 			   st.executeUpdate(sq);
 			   JOptionPane.showMessageDialog(null,"Ajout reussie !");
 			}
@@ -128,7 +128,7 @@ public class ProduitRequest {
 		}
 		return tb1;
 	}
-	public Choice choixMatiere( Choice nom) {
+	public Choice SelectProduit( Choice nom) {
 		try {
 			st= conn.createStatement();
 			rst = st.executeQuery("SELECT nom FROM produit");

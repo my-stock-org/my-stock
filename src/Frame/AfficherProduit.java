@@ -1,6 +1,7 @@
 package Frame;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -29,37 +30,54 @@ import request.ProduitRequest;
 public class AfficherProduit extends JFrame  implements Fenetre {
 	
     private static AfficherProduit instance = null;
-	private JButton annuler,valider;
-	private Choice nomproduit =new Choice();;
+	private JButton annuler,valider,supprimer;
+	private JTextField stock = new JTextField();
+	private Choice nomproduit =new Choice();
+	private Choice nomproduit1 =new Choice();
 	Connection conn = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection();
+	
+	JLabel labelHead = new JLabel("Liste des produits");
+    JLabel label1 = new JLabel("Modifier la quantiter d'un produit");
 	
 	JLabel title;
 	JTable tb1 =new JTable();
     JPanel monpanel=new JPanel();
     JPanel monpanel2=new JPanel();
+    JPanel panel3=new JPanel();
 	// Constructeur de l'objet.
 	private AfficherProduit() {
 		super();
 		this.proprieteFenetre();
 //		this.setLayout(null);
 		this.proprieteButton();
+		
 		tb1 = ProduitRequest.getInstance().AfficherProduit(tb1,monpanel);
 		tb1.setAutoCreateRowSorter(true);
 		tb1.setFillsViewportHeight(true);
 		
-		JLabel labelHead = new JLabel("Liste des produits");
-        labelHead.setFont(new Font("Arial",Font.TRUETYPE_FONT,20));
+	    labelHead.setFont(new Font("Arial",Font.TRUETYPE_FONT,20));
+	    label1.setFont(new Font("Arial",Font.TRUETYPE_FONT,15));
 	    
+	    nomproduit = ProduitRequest.getInstance().SelectProduit(nomproduit);
+	    nomproduit1 = ProduitRequest.getInstance().SelectProduit(nomproduit1);
 
-	    nomproduit = ProduitRequest.getInstance().choixMatiere(nomproduit);
-//	    this.nomproduit.setBounds(270, 245, 100, 20);
-//		this.add(nomproduit);
-//		monpanel2.add(nomproduit, BorderLayout.EAST);
-		
+		monpanel.add(label1);
+		monpanel.add(nomproduit1);
+		monpanel.add(stock);
+		monpanel.add(panel3);
+		panel3.add(valider);
+		panel3.add(annuler);
 
-        this.getContentPane().add(labelHead,BorderLayout.PAGE_START);
-//	    this.getContentPane().add(monpanel, BorderLayout.NORTH);
+		monpanel2.add(new JLabel(" "));
+		monpanel2.add(supprimer);
+		monpanel2.add(nomproduit);
+		monpanel2.add(labelHead);
+		monpanel2.add(new JLabel(" "));
 		
+		monpanel.setLayout(new GridLayout(2, 2));
+		monpanel2.setLayout(new GridLayout(2, 3));
+		
+        this.getContentPane().add(monpanel2,BorderLayout.PAGE_START);
 		this.getContentPane().add(new JScrollPane(tb1), BorderLayout.CENTER);
 	    this.getContentPane().add(monpanel, BorderLayout.SOUTH);
 		
@@ -87,12 +105,11 @@ public class AfficherProduit extends JFrame  implements Fenetre {
 	public void proprieteButton() {
 		annuler =new JButton("Annuler");
 		valider =new JButton("Valider");
+		supprimer =new JButton("Supprimer");
 		
-		this.annuler.setBounds(90, 330, 100, 30);
 		this.add(annuler);
-		
-		this.valider.setBounds(200, 330, 100, 30);
 		this.add(valider);
+		this.add(supprimer);
 		
 		this.annuler.addActionListener(new ActionListener()  {
 		   public void actionPerformed(ActionEvent e) {
@@ -100,14 +117,18 @@ public class AfficherProduit extends JFrame  implements Fenetre {
 		   }
 		 });
 
+		this.supprimer.addActionListener(new ActionListener() {
+			@Override
+			public  void actionPerformed(  ActionEvent e) {
+				ProduitRequest.getInstance().Delete(nomproduit.getSelectedItem());
+			}
+		});
 		this.valider.addActionListener(new ActionListener() {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
-				
+				ProduitRequest.getInstance().AjouterQuantite(nomproduit1.getSelectedItem(),Integer.valueOf(stock.getText()));
 			}
 		});
-		monpanel.add(annuler);
-		monpanel.add(valider);
 		
 	}
 	
