@@ -41,7 +41,7 @@ public class Produit extends JFrame  implements Fenetre {
 	private Produit() {
 		super();
 		this.proprieteFenetre();
-		this.setLayout(null);
+//		this.setLayout(null);
 		this.proprieteEtiquette();
 		this.proprieteButton();
 		this.proprieteChamptext();
@@ -169,7 +169,7 @@ public class Produit extends JFrame  implements Fenetre {
 					ProduitRequest.getInstance().InsertData(NomProduit.getText(), Reference.getText(), Stock.getText(), Prix.getText(), Description.getText());
 				} catch (Exception e2) {
 					// TODO: handle exception
-					JOptionPane.showMessageDialog(null," Impossible d'ajouter !",null,JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null," Impossible d'ajouter cet element !",null,JOptionPane.ERROR_MESSAGE);
 					
 				}
 			}
