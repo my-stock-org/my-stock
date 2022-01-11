@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Accueil.class
 /BdConnection.class
 /Fenetre.class
@@ -10,3 +11,8 @@
 /caissier$1.class
 /caissier$2.class
 /caissier.class
+=======
+/AfficherProduit$1.class
+/AfficherProduit$2.class
+/AfficherProduit.class
+>>>>>>> ngnitedem

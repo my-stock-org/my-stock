@@ -12,6 +12,9 @@ public class Produits {
 		 this.description=description;
 		 this.id_patron=1;
 	 }
+	 private Produits() {
+		 super();
+	 }
 		
 	 public static Produits getInstance(String nom, String reference, int stock, int prix, String description) {
 		if(instance == null)
@@ -48,10 +51,6 @@ public class Produits {
 	     return this.description;
 	 }
 	    //Modificateur
-
-	 public void setId_Produits(int id) {
-	     this.id = id;
-	 }
 	 
 	 public void setId_Patron(int id_patron) {
 	     this.id_patron = id_patron;

@@ -27,6 +27,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Proprietes.Produits;
+import request.BdConnection;
+import request.ProduitRequest;
 
 
 public class Produit extends JFrame  implements Fenetre {
@@ -37,11 +39,9 @@ public class Produit extends JFrame  implements Fenetre {
 		super();
 		this.proprieteFenetre();
 		this.setLayout(null);
-		this.propEtiquette();
-		this.propButon();
-		this.propChamptext();
-//		connect();
-		arrierePlan();
+		this.proprieteEtiquette();
+		this.proprieteButton();
+		this.proprieteChamptext();
 	}
 	static Produit getInstance() 
 	{
@@ -50,13 +50,6 @@ public class Produit extends JFrame  implements Fenetre {
 				instance = new Produit();
 			}
 		return instance;
-	}
-	public Produit(Produits prt) {
-		try {
-			insert(BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection(),prt);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
     
 	 public void proprieteFenetre(){
@@ -74,7 +67,7 @@ public class Produit extends JFrame  implements Fenetre {
 	private JButton annuler,valider;
 	private JTextField NomProduit,Reference,Stock,Prix,Description;
 	
-	public void propChamptext() {
+	public void proprieteChamptext() {
 		NomProduit = new JTextField();
 		Reference = new JTextField();
 		Stock = new JTextField();
@@ -105,7 +98,7 @@ public class Produit extends JFrame  implements Fenetre {
 		this.Description.setText(" ");
 	}
 	
-	public void propEtiquette() {
+	public void proprieteEtiquette() {
 		nom =new JLabel();
 		ref = new JLabel();
 		stck = new JLabel();
@@ -133,10 +126,8 @@ public class Produit extends JFrame  implements Fenetre {
 		this.desc.setText("Description ");
 		this.add(desc);
 		
-//		nom.setText(" ");
-		
 	}
-	public void propButon() {
+	public void proprieteButton() {
 		annuler =new JButton("Annuler");
 		valider =new JButton("Valider");
 		
@@ -151,67 +142,18 @@ public class Produit extends JFrame  implements Fenetre {
 		     Fermer_actionPerformed(e);
 		   }
 		 });
-//		this.valider.addActionListener(new ActionListener()  {
-//		  public void actionPerformed(ActionEvent e) {
-//		    System.exit(0);
-//		  }
-//		});
-		
+
 		this.valider.addActionListener(new ActionListener() {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
-				try {
-					String nom,reference,price,qnt,description;
-					int prix,stock;
-					Produits produit;
-					Connection conn = null;
-					nom = NomProduit.getText();
-					reference = Reference.getText();
-					qnt = Stock.getText();
-					stock=Integer.valueOf(qnt);
-					price = Prix.getText();
-					prix=Integer.valueOf(price);
-					description = Description.getText();
-					produit= Produits.getInstance(nom, reference, stock, prix, description);
-					Produit prod=new Produit(produit);
-					
-				}catch(InputMismatchException E) {
-					JOptionPane.showMessageDialog(null,
-				            "ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
-				}
-				}
-			
+				ProduitRequest.getInstance().InsertData(NomProduit.getText(), Reference.getText(), Stock.getText(), Prix.getText(), Description.getText());
+			}
 		});
 		
 	}
 	
-	public void insert(Connection conn,Produits prt)throws SQLException {
-		try
-	    {
-		Statement stmt = conn.createStatement();
-		String sql = "INSERT INTO `produit` (`reference` , `nom` , `stock` , `prix` , `description` , `id_patron`)" +
-                " values ('"+prt.getReference()+"','"+prt.getNom_Produits()+"',"+prt.getStock()+","+prt.getPrix()+",'"+prt.getDescription()+"',"+prt.getId_Patron()+")";
-		
-		System.out.println("Success");
-//		conn.close();
-	    }
-	    catch(Exception e){ 
-	      System.out.println(e);
-	    }
-		
-	}
-
-	 
 //	fermer
 	public void Fermer_actionPerformed(ActionEvent e){
 		this.dispose();
-	}
-	public void arrierePlan() {
-		JLabel label=new JLabel("");
-		label.setOpaque(true);
-		label.setBackground(Color.lightGray);
-		
-		label.setBounds(0, 0, 550, 400);
-		this.add(label);
 	}
 }
