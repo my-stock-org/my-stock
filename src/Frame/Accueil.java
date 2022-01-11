@@ -5,7 +5,7 @@ public class Accueil {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Fenetre produit = AfficherProduit.getInstance();
+		Welcome welcome = Welcome.getInstance();
 //		ProduitFrame prd = new ProduitFrame();
 	}
 

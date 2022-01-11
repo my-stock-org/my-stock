@@ -1,13 +1,16 @@
-package my_stock;
+package Frame;
 
-//Importing all necessary Packages
-import javax.swing.*;
+import Proprietes.Caissier;
+import Proprietes.Patron;
+import request.UserRequest;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.*;
 
 
 public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
@@ -15,16 +18,17 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	private String accountType; 
 	private String email;
 	private String password;
+	private String telephone;
 	
 	private static LoginPage instance = null;
-	Welcome back= null;
 	Patron patron = null;
-	
-	BdConnection connection = BdConnection.getInstance();
+	Caissier caissier = null;
+	UserRequest requestUser = UserRequest.getInstance();
 	
 	Container container=getContentPane();
 	
 	JLabel userLabel=new JLabel("Email");
+	JLabel telLabel = new JLabel("Téléphone");
     JLabel passwordLabel=new JLabel("Mot de passe ");
     JTextField userTextField=new JTextField();
     JPasswordField passwordField=new JPasswordField();
@@ -34,12 +38,13 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	 
 	 private LoginPage(String accountType) {
 			super();
+			this.accountType = accountType;
 			setLayoutManager();
 	        setLocationAndSize();
 	        addComponentsToContainer();
 	        addActionEvent();
 			proprieteFenetre();
-			this.accountType = accountType;
+			
 		}
 	 
 	static LoginPage getInstance(String accountType) 
@@ -49,20 +54,7 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 			return instance;
 		}
 	
-	String getEmail() {
-		return this.email;
-	}
-	
-	String getPassword() {
-		return this.password;
-	}
-	void setEmail(String email) {
-		this.email = email;
-	}
-	
-	void setPassword(String password) {
-		this.password = password;
-	}
+
 	
 	 public void proprieteFenetre(){
 		    this.setTitle("Connexion");
@@ -82,29 +74,17 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	        if (e.getSource() == loginButton) {
 	            email = userTextField.getText();
 	            password = passwordField.getText();
-	            
-	            PreparedStatement st;
-				try {
-					st = (PreparedStatement) connection.getConnection().prepareStatement("Select * from patron where email=? and password=?");
-					 st.setString(1, email);
-		                st.setString(2, password);
-		                ResultSet result = st.executeQuery();
-		                
-		                if(result.next()) {
-		                	String nom = result.getString("nom");
-		                	System.out.println(nom);
-		                }
-		                else {
-		                	JOptionPane.showMessageDialog(this, "Email ou mot de passe invalide");
-		                }
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+	            telephone =userTextField.getText();
+	            if(accountType == "patron")
+	            	patron = requestUser.loginPatron(email, password);
+	            else
+	            	caissier = requestUser.loginCaissier(telephone, password);
+	        
 	 
 	        }
 	        if (e.getSource() == cancelButton) {
 	        	this.dispose();
-	            back = Welcome.getInstance();
+	            Welcome.getInstance();
 	        }
 	        if (e.getSource() == showPassword) 
 	            if (showPassword.isSelected()) 
@@ -124,7 +104,11 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	  public void setLocationAndSize()
 	   {
 	       //Setting location and Size of each components using setBounds() method.
-	       userLabel.setBounds(50,150,100,30);
+	       if(accountType == "patron")
+	    	   userLabel.setBounds(50,150,100,30);
+	       if(accountType == "caissier")
+	    	   telLabel.setBounds(50,150,100,30);
+	       
 	       passwordLabel.setBounds(50,220,100,30);
 	       userTextField.setBounds(150,150,150,30);
 	       passwordField.setBounds(150,220,150,30);
@@ -138,6 +122,7 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	   {
 	      //Adding each components to the Container
 	       container.add(userLabel);
+	       container.add(telLabel);
 	       container.add(passwordLabel);
 	       container.add(userTextField);
 	       container.add(passwordField);
@@ -150,5 +135,11 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	        cancelButton.addActionListener(this);
 	        showPassword.addActionListener(this);
 	    }
+
+	@Override
+	public void proprieteButton() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

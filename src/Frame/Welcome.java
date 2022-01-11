@@ -1,8 +1,9 @@
-package my_stock;
 
+package Frame;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import request.BdConnection;
+
+
 public class Welcome extends JFrame  implements Fenetre, ActionListener {
 	private static Welcome instance = null;
-	LoginPage login = null;
+	 Connection connection = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection();
 	
 
 	Container container=getContentPane();
@@ -55,11 +59,13 @@ public class Welcome extends JFrame  implements Fenetre, ActionListener {
  
  @Override
     public void actionPerformed(ActionEvent e) {
-	 	this.dispose();
+	 this.dispose();
         if (e.getSource() == caissierButton) 
-        	 login = LoginPage.getInstance("caissier");
+        	LoginPage.getInstance("caissier");
         if (e.getSource() == patronButton) 
-        	 login = LoginPage.getInstance("patron");
+        	LoginPage.getInstance("patron");
+        
+        	
         
  
     }
@@ -91,5 +97,11 @@ public void setLocationAndSize()
 	 caissierButton.addActionListener(this);
 	 patronButton.addActionListener(this);
   }
+
+@Override
+public void proprieteButton() {
+	// TODO Auto-generated method stub
+	
+}
  
 }
