@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -34,6 +36,7 @@ import request.ProduitRequest;
 public class Produit extends JFrame  implements Fenetre {
 	
     private static Produit instance = null;
+    ImageIcon background=new ImageIcon("img/vente.jpg");
 	// Constructeur de l'objet.
 	private Produit() {
 		super();
@@ -42,6 +45,15 @@ public class Produit extends JFrame  implements Fenetre {
 		this.proprieteEtiquette();
 		this.proprieteButton();
 		this.proprieteChamptext();
+		
+		Image img=background.getImage();
+	    Image temp=img.getScaledInstance(400,500,Image.SCALE_SMOOTH);
+	    background=new ImageIcon(temp);
+	    JLabel back=new JLabel(background);
+	    back.setBounds(0,0,this.getWidth(),this.getHeight());
+	    this.add(back);
+		
+		this.setVisible(true);
 	}
 	static Produit getInstance() 
 	{
@@ -56,14 +68,14 @@ public class Produit extends JFrame  implements Fenetre {
 		this.setTitle("Produits");
 		this.setSize(400,320);
 		this.setLocationRelativeTo(null);
-//		this.setResizable(false);//pouvoir ou non redefinir la fenetre
-		this.setLocationRelativeTo(null);//position de la fenetre a l'ecran
+		this.setResizable(false); //pouvoir ou non redefinir la fenetre
+		this.setLocationRelativeTo(null); //position de la fenetre a l'ecran
 		this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
 		
-		this.setVisible(true);
+		
 	}
 	 
-	private JLabel nom,ref,stck,id,prix,desc;
+	private JLabel nom,ref,stck,prix,desc;
 	private JButton annuler,valider;
 	private JTextField NomProduit,Reference,Stock,Prix,Description;
 	
@@ -99,33 +111,40 @@ public class Produit extends JFrame  implements Fenetre {
 	}
 	
 	public void proprieteEtiquette() {
-		nom =new JLabel();
-		ref = new JLabel();
-		stck = new JLabel();
-		prix = new JLabel();
-		desc = new JLabel();
-		id = new JLabel();
+		nom =new JLabel("Nom");
+		ref = new JLabel("Reference");
+		stck = new JLabel("Quantite ");
+		prix = new JLabel("Prix ");
+		desc = new JLabel("Description");
+		Font myfont= new Font("Arial",Font.TRUETYPE_FONT,13).deriveFont(Font.ITALIC|Font.BOLD);
 		
 	    this.nom.setBounds(50, 40, 100, 20);//position et dimension 
-		this.nom.setText("Nom");//texte de l'etiquette
+	    nom.setFont(myfont);
 		this.add(nom);//integre l'etiquette dans le conteneur 
 		
 		this.ref.setBounds(50, 80, 100, 20);
-	    this.ref.setText("Reference");
+		ref.setFont(myfont);
 		this.add(ref);
 		
 		this.stck.setBounds(50, 110, 100, 20);
-		this.stck.setText("Quantite ");
+		stck.setFont(myfont);
 		this.add(stck);
 		
 		this.prix.setBounds(50, 140, 100, 20);
-		this.prix.setText("Prix");
+		prix.setFont(myfont);
 		this.add(prix);
 		
 		this.desc.setBounds(50, 180, 100, 20);
-		this.desc.setText("Description ");
+		desc.setFont(myfont);
 		this.add(desc);
 		
+
+		nom.setForeground(Color.WHITE);
+		ref.setForeground(Color.WHITE);
+		stck.setForeground(Color.WHITE);
+		prix.setForeground(Color.WHITE);
+		desc.setForeground(Color.WHITE);
+
 	}
 	public void proprieteButton() {
 		annuler =new JButton("Annuler");

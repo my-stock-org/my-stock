@@ -55,8 +55,9 @@ public class AfficherProduit extends JFrame  implements Fenetre {
 		tb1.setAutoCreateRowSorter(true);
 		tb1.setFillsViewportHeight(true);
 		
-	    labelHead.setFont(new Font("Arial",Font.TRUETYPE_FONT,20));
-	    label1.setFont(new Font("Arial",Font.TRUETYPE_FONT,15));
+
+		labelHead.setFont(new Font("Arial",Font.TRUETYPE_FONT,20).deriveFont(Font.BOLD|Font.ITALIC));
+	    label1.setFont(new Font("Arial",Font.TRUETYPE_FONT,15).deriveFont(Font.BOLD|Font.ITALIC));
 	    
 	    nomproduit = ProduitRequest.getInstance().SelectProduit(nomproduit);
 	    nomproduit1 = ProduitRequest.getInstance().SelectProduit(nomproduit1);

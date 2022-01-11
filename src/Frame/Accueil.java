@@ -56,7 +56,7 @@ public class Accueil extends JFrame  implements Fenetre {
 		background();
 		this.setVisible(true);
 	}
-	static Accueil getInstance() 
+	public static Accueil getInstance() 
 	{
 		if (instance == null) 
 			{
