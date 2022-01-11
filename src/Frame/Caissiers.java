@@ -1,4 +1,4 @@
-package my_stock;
+package Frame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import my_stock.Fenetre;
 
 public class Caissiers extends  JFrame  implements Fenetre {
 	
@@ -26,9 +28,7 @@ public class Caissiers extends  JFrame  implements Fenetre {
 		static Caissiers getInstance() 
 		{
 			if (instance == null) 
-				{
 					instance = new Caissiers();
-				}
 			return instance;
 		}
 	    

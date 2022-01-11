@@ -1,4 +1,4 @@
-package my_stock;
+package Frame;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
