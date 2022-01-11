@@ -28,9 +28,10 @@ public class Patron extends JFrame  implements Fenetre {
 		
 		this.setVisible(true);
 	}
-	public static void main(String[] args) {
-		Patron prd = new Patron();
-//		prd.setVisible(true);
-
+	public void proprieteEtiquette(){
+		
+	}
+	public void proprieteButton(){
+		
 	}
 }
