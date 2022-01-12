@@ -1,7 +1,7 @@
 package Proprietes;
 
 
-public class Patron extends User   {
+public class Patron extends  User   {
 	
 	static Patron instance= null;
 	private String email;
@@ -25,5 +25,7 @@ public class Patron extends User   {
 	void setEmail(String email) {
 		this.email = email;
 	}
+
+	
 
 }

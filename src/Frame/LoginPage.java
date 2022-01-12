@@ -35,6 +35,10 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
     JButton loginButton=new JButton("Connexion");
     JButton cancelButton=new JButton("Annuler");
     JCheckBox showPassword=new JCheckBox("voir le mot de passe");
+    ImageIcon background=new ImageIcon("img/vente.jpg");
+    ImageIcon background2=new ImageIcon("img/avatar.png");
+    ImageIcon background3=new ImageIcon("img/cle.jpg");
+    ImageIcon background4=new ImageIcon("img/mail.png");
 	 
 	 private LoginPage(String accountType) {
 			super();
@@ -65,6 +69,13 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	        this.setLocationRelativeTo(null);
 	 
 			
+		    Image img=background.getImage();
+		    Image temp=img.getScaledInstance(400,500,Image.SCALE_SMOOTH);
+		    background=new ImageIcon(temp);
+		    JLabel back=new JLabel(background);
+		    back.setBounds(0,0,this.getWidth(),this.getHeight());
+		    this.add(back);
+	        
 			this.setVisible(true);
 		}
 	 
@@ -75,10 +86,14 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	            email = userTextField.getText();
 	            password = passwordField.getText();
 	            telephone =userTextField.getText();
-	            if(accountType == "patron")
+	            if(accountType == "patron") {
 	            	patron = requestUser.loginPatron(email, password);
-	            else
+	            	this.dispose();
+	            }
+	            else {
 	            	caissier = requestUser.loginCaissier(telephone, password);
+	            	this.dispose();
+	            }
 	        
 	 
 	        }
@@ -109,6 +124,31 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	       if(accountType == "caissier")
 	    	   telLabel.setBounds(50,150,100,30);
 	       
+	       	Image img=background2.getImage();
+		    Image temp=img.getScaledInstance(120,120,Image.SCALE_SMOOTH);
+		    background2=new ImageIcon(temp);
+		    JLabel back=new JLabel(background2);
+		    back.setBounds(100,2,150,150);
+		    this.add(back);
+		    
+		    img=background4.getImage();
+		    temp=img.getScaledInstance(30,30,Image.SCALE_SMOOTH);
+		    background4=new ImageIcon(temp);
+		    back=new JLabel(background4);
+		    back.setBounds(151,140,320,50);
+		    this.add(back);
+		    
+		    img=background3.getImage();
+		    temp=img.getScaledInstance(30,30,Image.SCALE_SMOOTH);
+		    background3=new ImageIcon(temp);
+		    back=new JLabel(background3);
+		    back.setBounds(151,210,320,50);
+		    this.add(back);
+		    
+		    telLabel.setForeground(Color.WHITE);
+		    userLabel.setForeground(Color.WHITE);
+		    passwordLabel.setForeground(Color.WHITE);
+	       
 	       passwordLabel.setBounds(50,220,100,30);
 	       userTextField.setBounds(150,150,150,30);
 	       passwordField.setBounds(150,220,150,30);
@@ -136,7 +176,6 @@ public class LoginPage extends JFrame  implements Fenetre, ActionListener   {
 	        showPassword.addActionListener(this);
 	    }
 
-	@Override
 	public void proprieteButton() {
 		// TODO Auto-generated method stub
 		

@@ -2,6 +2,6 @@ package Frame;
 
 public interface Fenetre {
 	void proprieteFenetre();
-	void proprieteButton();
-	void addActionEvent();
+//	void proprieteButton();
+//	void addActionEvent();
 }

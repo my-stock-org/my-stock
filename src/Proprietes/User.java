@@ -14,26 +14,25 @@ public class User {
 	
 	
 	//Getters
-	int getId() {
+	public int  getId() {
 		return this.id;
 	}
 	
-	String getNom() {
+	public String getNom() {
 		return this.nom;
 	}
 	
-	String getPassword() {
+	public String getPassword() {
 		return this.password;
 	}
 	
 	
-	
 	//Setters
-	void setNom(String name) {
+	public void setNom(String name) {
 		this.nom = name;
 	}
 	
-	void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 

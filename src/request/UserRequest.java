@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import Frame.Accueil;
 import Proprietes.Patron;
 import Proprietes.Caissier;
 
@@ -39,6 +40,7 @@ public class UserRequest {
             	String nom = result.getString("nom");
             	int id = result.getInt("id");
             	 pat = Patron.getInstance(id, nom, password, email);
+             	Accueil.getInstance();
             }
             else 
             	JOptionPane.showMessageDialog(null,
@@ -61,6 +63,7 @@ public class UserRequest {
             	String nom = result.getString("nom");
             	int id = result.getInt("id");
             	caiss = Caissier.getInstance(id, nom, password, telephone);
+            	Accueil.getInstance();
             }
             else 
             	JOptionPane.showMessageDialog(null,

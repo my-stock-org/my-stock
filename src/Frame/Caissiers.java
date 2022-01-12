@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import my_stock.Fenetre;
 
 public class Caissiers extends  JFrame  implements Fenetre {
 	
