@@ -9,8 +9,8 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import Frame.Accueil;
+import Proprietes.Caissiers;
 import Proprietes.Patron;
-import Proprietes.Caissier;
 
 public class UserRequest {
 
@@ -52,8 +52,8 @@ public class UserRequest {
 		return pat;
 	 }
 	 
-	 public Caissier loginCaissier(String telephone, String password) {
-		 Caissier caiss =null;
+	 public Caissiers loginCaissier(String telephone, String password) {
+		 Caissiers caiss =null;
 		 String sqlR = "Select * from caissier where telephone='"+telephone+"' and password='"+password+"'";
 		 try {
 			st= connection.createStatement();
@@ -62,7 +62,7 @@ public class UserRequest {
             if(result.next()) {
             	String nom = result.getString("nom");
             	int id = result.getInt("id");
-            	caiss = Caissier.getInstance(id, nom, password, telephone);
+            	caiss = Caissiers.getInstance(id, nom, password, telephone);
             	Accueil.getInstance();
             }
             else 

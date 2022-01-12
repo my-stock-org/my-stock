@@ -96,12 +96,11 @@ public class ProduitRequest {
 		            "ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-
 			  JOptionPane.showMessageDialog(null," Impossible de mettre a jour cette valeur !",null,JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 	public  JTable AfficherProduit(JTable tb1, JPanel pn) {
+		try{
 		DefaultTableModel df=new DefaultTableModel();
 		df.addColumn("Nom ");
 		df.addColumn("Reference ");
@@ -110,7 +109,7 @@ public class ProduitRequest {
 		df.addColumn("Description   ");
 		tb1.setModel(df);
 		String sql="select nom,reference,stock,prix,description from produit";
-		try{
+		
 			st= conn.createStatement();
 			rst=st.executeQuery(sql);
 			while(rst.next()){
@@ -122,9 +121,9 @@ public class ProduitRequest {
 					rst.getString("description")
 				});
 			}
-		}
-		catch(SQLException ex){
-			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			  JOptionPane.showMessageDialog(null," Impossible d'afficher la liste de produit !",null,JOptionPane.ERROR_MESSAGE);
 		}
 		return tb1;
 	}

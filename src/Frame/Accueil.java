@@ -31,7 +31,7 @@ public class Accueil extends JFrame  implements Fenetre {
     private static Accueil instance = null;
     private Image image;
 	private JLabel nom,ref,stck,id,prix,desc;
-	private JButton fermer,valider,consulter,rechercher,commande,ajouterPro,updatePro;
+	private JButton fermer,valider,consulter,rechercher,commande,ajouterPro,updatePro,addCaissier;
 	private JTextField NomProduit,Reference,Stock,Prix,Description;
 
     JPanel panel=new JPanel();
@@ -99,6 +99,7 @@ public class Accueil extends JFrame  implements Fenetre {
 		commande =new JButton("Commander");
 		ajouterPro =new JButton("Creer un produit");
 		updatePro =new JButton("Modifier un produit");
+		addCaissier =new JButton("Ajouter un caissier");
 		
 		fermer.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 //		rechercher.setMargin(new Insets(10,10,10,10));
@@ -151,6 +152,12 @@ public class Accueil extends JFrame  implements Fenetre {
 				AfficherProduit.getInstance();
 			}
 		});
+		this.addCaissier.addActionListener(new ActionListener() {
+			@Override
+			public  void actionPerformed(  ActionEvent e) {
+				Caissier.getInstance();
+			}
+		});
 		panel.add(consulter);
 //		panel2.add(new JLabel(" "));
 		panel2.add(rechercher);
@@ -158,6 +165,7 @@ public class Accueil extends JFrame  implements Fenetre {
 		panel2.add(commande);
 		panel2.add(ajouterPro);
 		panel2.add(updatePro);
+		panel2.add(addCaissier);
 		
 	}
 	
