@@ -85,7 +85,7 @@ public class Caissier extends  JFrame  implements Fenetre {
 				
 				public  void actionPerformed(  ActionEvent e) {
 					try {
-						CaissierRequest.getInstance().InsertData(textNom.getText(), textPassword.getText(),  textTelephone.getText());
+						CaissierRequest.getInstance().InsertData(textNom.getText(), textPassword.getText(), textTelephone.getText());
 					} catch (Exception e2) {
 						// TODO: handle exception
 						JOptionPane.showMessageDialog(null," Impossible d'ajouter cet element !",null,JOptionPane.ERROR_MESSAGE);

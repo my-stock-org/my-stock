@@ -40,7 +40,7 @@ public class CaissierRequest {
 			
 			cs = conn.createStatement();
 			String sql = "INSERT INTO `caissier` (`nom` , `password` , `telephone`)" +
-	                " values ('"+caissier.getTelephone()+"','"+caissier.getPassword()+"','"+caissier.getTelephone()+"')";
+	                " values ('"+caissier.getNom()+"','"+caissier.getPassword()+"','"+caissier.getTelephone()+"')";
 			cs.executeUpdate(sql);
 			System.out.println("Success");
 			
