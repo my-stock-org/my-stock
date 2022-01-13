@@ -35,3 +35,6 @@ public class Patron extends JFrame  implements Fenetre {
 		
 	}
 }
+public class Patron {
+
+}

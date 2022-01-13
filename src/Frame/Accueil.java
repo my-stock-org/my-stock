@@ -181,4 +181,14 @@ public class Accueil extends JFrame  implements Fenetre {
 		pn.setBackground(new Color(198, 199, 192));
 		panel3.add(pn);
 	}
+
+public class Accueil {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//Fenetre produit = Produits.getInstance();
+		Fenetre caissier = Caissiers.getInstance();
+		//BdConnection testConnection = BdConnection.getInstance();
+	}
+
 }
