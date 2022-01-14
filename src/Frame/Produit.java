@@ -177,6 +177,10 @@ public class Produit extends JFrame  implements Fenetre {
 		
 	}
 	
+	public void openFrame() {
+		this.setVisible(true);
+	}
+	
 //	fermer
 	public void Fermer_actionPerformed(ActionEvent e){
 		this.dispose();

@@ -4,6 +4,7 @@ import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.InputMismatchException;
@@ -68,9 +69,6 @@ public class ProduitRequest {
 			if(JOptionPane.showConfirmDialog(null,"Voulez-vous supprimer ?",null,JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION){
 				st.executeUpdate(sq);
 				JOptionPane.showMessageDialog(null,"Suppréssion réussie !");
-//				dispose();
-//				Produit_crud pr=new Produit_crud();
-//				pr.setVisible(true);
 			}
 		}catch(InputMismatchException E) {
 			JOptionPane.showMessageDialog(null,
@@ -141,4 +139,46 @@ public class ProduitRequest {
 		}
 		return nom;
 	}
+	
+	public String[][] getProduit( ) {
+		String[][] donnees = null;
+		try {
+			
+			Statement statement = conn.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM produit");
+			ResultSetMetaData metaData = resultSet.getMetaData();
+			String[] entetes=new String[metaData.getColumnCount()];
+			int j;
+				for(int i = 0; i<metaData.getColumnCount();i++){
+					j=i+1;
+					entetes[i]=metaData.getColumnName(j);
+				}
+		    int taille=0,k=0;
+		   
+		    while (resultSet.next()){
+		    	taille++;
+		    }
+		    Statement statement1 = conn.createStatement();
+			ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM produit");
+			ResultSetMetaData metaData1 = resultSet.getMetaData();
+			donnees=new String[taille][metaData.getColumnCount()];
+		    String[] tab=new String[metaData.getColumnCount()];
+			while (resultSet1.next()){
+				
+				for(int i = 0; i<metaData1.getColumnCount();i++){
+					j=i+1;
+					tab[i]=resultSet1.getString(j);
+					donnees[k][i]=tab[i];
+				}
+				k++;
+			}
+			return donnees;
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return donnees;
+	}
+	
 }
