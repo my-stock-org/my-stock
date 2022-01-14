@@ -18,7 +18,7 @@ public class Patron extends  User   {
 		return instance;
 	}
 	
-	String getEmail() {
+	public String getEmail() {
 		return this.email;
 	}
 	
