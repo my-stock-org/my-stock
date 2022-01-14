@@ -1,6 +1,7 @@
 package Frame;
 
 import javax.swing.JFrame;
+import Frame.Fenetre;
 
 public class Patron extends JFrame  implements Fenetre {
 	private static Patron instance = null;
@@ -34,7 +35,4 @@ public class Patron extends JFrame  implements Fenetre {
 	public void proprieteButton(){
 		
 	}
-}
-public class Patron {
-
 }
