@@ -35,7 +35,6 @@ public class AfficherProduit extends JFrame implements Fenetre {
 	private Choice nomproduit =new Choice();
 	private Choice nomproduit1 =new Choice();
 	private JFrame frame =this;
-	Connection conn = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection();
 	
 	JLabel labelHead = new JLabel("Liste des produits");
 	JLabel label1 = new JLabel("Modifier la quantiter d'un produit");

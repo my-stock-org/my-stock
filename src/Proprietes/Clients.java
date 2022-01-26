@@ -48,20 +48,7 @@ public class Clients {
 	
 	public void setIdPatron(int id) {
 		this.idPatron= id;
-	}
-	
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	}	    
     
-    public void setAddresse (String addresse) {
-        this.addresse = addresse;
-    }
-    
-    
-    public void setTelephone(int telephone) {
-        this.telephone = telephone;
-    }
 }
 

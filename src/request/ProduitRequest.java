@@ -131,22 +131,21 @@ public class ProduitRequest {
 		df.addColumn("Prix ($)");
 		df.addColumn("Description   ");
 		tb1.setModel(df);
-		String sql="select nom,reference,stock,prix,description from produit";
-		
-			st= conn.createStatement();
-			rst=st.executeQuery(sql);
-			while(rst.next()){
-				df.addRow(new Object[]{
-					rst.getString("nom"),
-					rst.getString("reference"),
-					rst.getString("stock"),
-					rst.getString("prix"),
-					rst.getString("description")
+		String sql = "select nom,reference,stock,prix,description from produit";
+		try {
+			st = conn.createStatement();
+			rst = st.executeQuery(sql);
+			while (rst.next()) {
+				df.addRow(new Object[] {
+						rst.getString("nom"),
+						rst.getString("reference"),
+						rst.getString("stock"),
+						rst.getString("prix"),
+						rst.getString("description")
 				});
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			  JOptionPane.showMessageDialog(null," Impossible d'afficher la liste de produit !",null,JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException ex) {
+
 		}
 		return tb1;
 	}
@@ -199,7 +198,13 @@ public class ProduitRequest {
 				k++;
 			}
 			return donnees;
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return donnees;
+	}
 
 	public int getProducId(String name) {
 		int nbre = 0;
