@@ -59,9 +59,9 @@ public class CommandeRequest {
 					int reste = productStock - productQte;
 					InsertData(ref, clientId, productId, total, date);
 					ProduitRequest.getInstance().UpdateQuantite(produitName, reste);
-					if (Caissier.getInstance() != null) {
-
-					}
+//					if (Caissier.getInstance() != null) {
+//
+//					}
 				}
 			}
 		} catch (SQLException e) {
