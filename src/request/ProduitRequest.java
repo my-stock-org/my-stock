@@ -19,87 +19,112 @@ import Frame.Produit;
 import Proprietes.Produits;
 
 public class ProduitRequest {
-	 static ProduitRequest instance= null;
-	 Produits produit;
-	 Connection conn = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection();
-	 Statement st;
+	static ProduitRequest instance = null;
+	Produits produit;
+	Connection conn = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "")
+			.getConnection();
+	Statement st;
 	ResultSet rst;
+
 	private ProduitRequest() {
 		super();
 	}
+
 	public static ProduitRequest getInstance() {
-		if(instance == null)
-				instance = new ProduitRequest();
+		if (instance == null)
+			instance = new ProduitRequest();
 		return instance;
 	}
-	
-	public  void InsertData(String NomProduit, String Reference, String Stock, String Prix, String Description) {
+
+	public void InsertData(String NomProduit, String Reference, String Stock, String Prix, String Description) {
 		try {
-			String nom,reference,description;
-			int prix,stock;
+			String nom, reference, description;
+			int prix, stock;
 			nom = NomProduit;
 			reference = Reference;
-			stock=Integer.valueOf(Stock);
-			prix= Integer.valueOf(Prix);
+			stock = Integer.valueOf(Stock);
+			prix = Integer.valueOf(Prix);
 			description = Description;
-			
-			produit= Produits.getInstance(nom, reference, stock, prix, description);
-			
+
+			produit = Produits.getInstance(nom, reference, stock, prix, description);
+
 			st = conn.createStatement();
-			String sql = "INSERT INTO `produit` (`reference` , `nom` , `stock` , `prix` , `description` , `id_patron`)" +
-	                " values ('"+produit.getReference()+"','"+produit.getNom_Produits()+"',"+produit.getStock()+","+produit.getPrix()+",'"+produit.getDescription()+"',"+1+")";
-			
+			String sql = "INSERT INTO `produit` (`reference` , `nom` , `stock` , `prix` , `description` , `id_patron`)"
+					+
+					" values ('" + produit.getReference() + "','" + produit.getNom_Produits() + "',"
+					+ produit.getStock() + "," + produit.getPrix() + ",'" + produit.getDescription() + "'," + 1 + ")";
+
 			st.executeUpdate(sql);
 			System.out.println("Success");
-			
-		}catch(InputMismatchException E) {
-			JOptionPane.showMessageDialog(null,
-		            "ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			  JOptionPane.showMessageDialog(null," Impossible d'ajouter !",null,JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
-	}
-	public  void Delete(String nom) {
-		try {
-			String sq="delete from produit where nom='"+nom+"'";
 
-			st= conn.createStatement();
-			if(JOptionPane.showConfirmDialog(null,"Voulez-vous supprimer ?",null,JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION){
-				st.executeUpdate(sq);
-				JOptionPane.showMessageDialog(null,"Suppréssion réussie !");
-			}
-		}catch(InputMismatchException E) {
+		} catch (InputMismatchException E) {
 			JOptionPane.showMessageDialog(null,
-		            "ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
+					"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			  JOptionPane.showMessageDialog(null," Impossible de supprimer !",null,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, " Impossible d'ajouter !", null, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 	}
-	public  void AjouterQuantite(String nom, int quantite) {
+
+	public void Delete(String nom) {
 		try {
-			String sq="update produit set stock=stock+'"+quantite+"' where nom='"+nom+"'";
-			
-			st= conn.createStatement();
-			if(JOptionPane.showConfirmDialog(null,"Voulez-vous ajoutez la quantité de ce produit?",null,JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION){
-			   st.executeUpdate(sq);
-			   JOptionPane.showMessageDialog(null,"Ajout reussie !");
+			String sq = "delete from produit where nom='" + nom + "'";
+
+			st = conn.createStatement();
+			if (JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer ?", null,
+					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+				st.executeUpdate(sq);
+				JOptionPane.showMessageDialog(null, "Supprï¿½ssion rï¿½ussie !");
+				// dispose();
+				// Produit_crud pr=new Produit_crud();
+				// pr.setVisible(true);
 			}
-			 
-		}catch(InputMismatchException E) {
+		} catch (InputMismatchException E) {
 			JOptionPane.showMessageDialog(null,
-		            "ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
+					"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			  JOptionPane.showMessageDialog(null," Impossible de mettre a jour cette valeur !",null,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, " Impossible de supprimer !", null, JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
-	public  JTable AfficherProduit(JTable tb1, JPanel pn) {
-		try{
-		DefaultTableModel df=new DefaultTableModel();
+
+	public void AjouterQuantite(String nom, int quantite) {
+		try {
+			String sq = "update produit set stock=stock+'" + quantite + "' where nom='" + nom + "'";
+
+			st = conn.createStatement();
+			if (JOptionPane.showConfirmDialog(null, "Voulez-vous ajoutez la quantitï¿½ de ce produit?", null,
+					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+				st.executeUpdate(sq);
+				JOptionPane.showMessageDialog(null, "Ajout reussie !");
+			}
+
+		} catch (InputMismatchException E) {
+			JOptionPane.showMessageDialog(null,
+					"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+			JOptionPane.showMessageDialog(null, " Impossible de mettre a jour cette valeur !", null,
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+	}
+
+	public void UpdateQuantite(String nom, int qte) {
+		try {
+			String sq = "update produit set stock=+'" + qte + "' where nom='" + nom + "'";
+			st = conn.createStatement();
+			st.executeUpdate(sq);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public JTable AfficherProduit(JTable tb1, JPanel pn) {
+		DefaultTableModel df = new DefaultTableModel();
 		df.addColumn("Nom ");
 		df.addColumn("Reference ");
 		df.addColumn("Quantite ");
@@ -125,13 +150,14 @@ public class ProduitRequest {
 		}
 		return tb1;
 	}
-	public Choice SelectProduit( Choice nom) {
+
+	public Choice SelectProduit(Choice nom) {
 		try {
-			st= conn.createStatement();
+			st = conn.createStatement();
 			rst = st.executeQuery("SELECT nom FROM produit");
-			
-			while (rst.next()){
-				nom.add(rst.getString(1));	
+
+			while (rst.next()) {
+				nom.add(rst.getString(1));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -173,12 +199,22 @@ public class ProduitRequest {
 				k++;
 			}
 			return donnees;
-		
+		}
+
+	public int getProducId(String name) {
+		int nbre = 0;
+		try {
+			st = conn.createStatement();
+			String req = "SELECT id FROM produit WHERE nom ='" + name + "'";
+			rst = st.executeQuery(req);
+
+			if (rst.next()) {
+				nbre = rst.getInt(1);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return donnees;
+		return nbre;
 	}
-	
 }
