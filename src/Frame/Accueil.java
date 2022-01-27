@@ -77,7 +77,7 @@ public class Accueil extends JFrame  implements Fenetre {
 	
 	public void proprieteEtiquette() {
 		JLabel label = new JLabel(" ");
-	    label.setPreferredSize(new Dimension(580, 500));
+	    label.setPreferredSize(new Dimension(550, 500));
 	    Border lineborder = BorderFactory.createLoweredBevelBorder();
 	    //associer à JLabel
 	    label.setBorder(lineborder);
@@ -85,7 +85,6 @@ public class Accueil extends JFrame  implements Fenetre {
 	    panel3.add(label);
 	    
 	    this.getContentPane().setLayout(new BorderLayout());
-		
 		panel.add(new JLabel(" "));
 	}
 	public void proprieteButton() {
@@ -95,7 +94,7 @@ public class Accueil extends JFrame  implements Fenetre {
 		rechercher =new JButton("Evolution du systeme");
 		commande =new JButton("Commander");
 		ajouterPro =new JButton("Creer un produit");
-		updatePro =new JButton("Modifier un produit");
+		updatePro =new JButton("Consulter les caissiers");
 		addCaissier =new JButton("Ajouter un caissier");
 		
 		fermer.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
@@ -149,10 +148,18 @@ public class Accueil extends JFrame  implements Fenetre {
 				AfficherProduit.getInstance().openFrame();
 			}
 		});
+		
+		this.updatePro.addActionListener(new ActionListener() {
+			@Override
+			public  void actionPerformed(  ActionEvent e) {
+				AfficheCaissier.getInstance().openFrame();
+			}
+		});
+		
 		this.addCaissier.addActionListener(new ActionListener() {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
-				Caissier.getInstance();
+				Caissier.getInstance().openFrame();
 			}
 		});
 		this.rechercher.addActionListener(new ActionListener() {
@@ -162,13 +169,13 @@ public class Accueil extends JFrame  implements Fenetre {
 			}
 		});
 		panel.add(consulter);
-//		panel2.add(new JLabel(" "));
-		panel2.add(rechercher);
+		panel.add(updatePro);
+		panel2.add(new JLabel(" "));
 		panel.add(fermer);
 		panel2.add(commande);
 		panel2.add(ajouterPro);
-		panel2.add(updatePro);
 		panel2.add(addCaissier);
+		panel2.add(rechercher);
 		
 	}
 	

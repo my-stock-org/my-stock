@@ -142,7 +142,6 @@ public class AfficherProduit extends JFrame implements Fenetre {
 		this.setVisible(true);
 	}
 	
-
 	// fermer
 	public void Fermer_actionPerformed(ActionEvent e) {
 		this.dispose();
