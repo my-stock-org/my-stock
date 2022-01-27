@@ -41,45 +41,44 @@ public class Accueil extends JFrame  implements Fenetre {
 	private Accueil() {
 		super();
 		this.proprieteFenetre();
-//		this.setLayout(null);
+		// this.setLayout(null);
 		this.proprieteEtiquette();
 		this.proprieteButton();
-		
+
 		GridLayout gl = new GridLayout(10, 1, 15, 10);
 		panel.setLayout(gl);
 		panel2.setLayout(gl);
-		
-        this.getContentPane().add(panel,BorderLayout.EAST);
+
+		this.getContentPane().add(panel, BorderLayout.EAST);
 		this.getContentPane().add(panel3, BorderLayout.CENTER);
-	    this.getContentPane().add(panel2, BorderLayout.WEST);
-		
+		this.getContentPane().add(panel2, BorderLayout.WEST);
+
 		background();
 		this.setVisible(true);
 	}
-	public static Accueil getInstance() 
-	{
-		if (instance == null) 
-			{
-				instance = new Accueil();
-			}
+
+	public static Accueil getInstance() {
+		if (instance == null) {
+			instance = new Accueil();
+		}
 		return instance;
 	}
-    
-	 public void proprieteFenetre(){
+
+	public void proprieteFenetre() {
 		this.setTitle("Accueil");
-		this.setSize(900,600);
+		this.setSize(900, 600);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);//pouvoir ou non redefinir la fenetre
 		this.setLocationRelativeTo(null);//position de la fenetre a l'ecran
 		this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
 
 	}
-	
+
 	public void proprieteEtiquette() {
 		JLabel label = new JLabel(" ");
 	    label.setPreferredSize(new Dimension(550, 500));
 	    Border lineborder = BorderFactory.createLoweredBevelBorder();
-	    //associer à JLabel
+	    //associer ï¿½ JLabel
 	    label.setBorder(lineborder);
 	    panel3.add(new JLabel("Effectuer toutes vos transaction avec assurance"));
 	    panel3.add(label);
@@ -87,6 +86,7 @@ public class Accueil extends JFrame  implements Fenetre {
 	    this.getContentPane().setLayout(new BorderLayout());
 		panel.add(new JLabel(" "));
 	}
+
 	public void proprieteButton() {
 		fermer =new JButton("Quitter");
 		consulter =new JButton("Consulter Produit");
@@ -98,36 +98,36 @@ public class Accueil extends JFrame  implements Fenetre {
 		addCaissier =new JButton("Ajouter un caissier");
 		
 		fermer.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-//		rechercher.setMargin(new Insets(10,10,10,10));
-//		consulter.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-//		rechercher.setBorder(null); 
-		
+		// rechercher.setMargin(new Insets(10,10,10,10));
+		// consulter.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		// rechercher.setBorder(null);
+
 		this.fermer.addActionListener(new ActionListener() {
 			@Override
-			public  void actionPerformed(  ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					fermer.setBackground(Color.RED);
-				    //changer la couleur de text du bouton
-				    fermer.setForeground(Color.WHITE);
+					// changer la couleur de text du bouton
+					fermer.setForeground(Color.WHITE);
 					int reponse = JOptionPane.showConfirmDialog(null,
-				            "voulez-vous vraiment arreter le programe?", "Attention !",
-				            JOptionPane.YES_NO_OPTION);
-				        switch (reponse) {
-				            case JOptionPane.YES_OPTION:
-				            	System.exit(FRAMEBITS);
-				                break;
-				            case JOptionPane.NO_OPTION:
-				                // ...
-				                break;
-				        }
-				}catch(InputMismatchException E) {
+							"voulez-vous vraiment arreter le programe?", "Attention !",
+							JOptionPane.YES_NO_OPTION);
+					switch (reponse) {
+						case JOptionPane.YES_OPTION:
+							System.exit(FRAMEBITS);
+							break;
+						case JOptionPane.NO_OPTION:
+							// ...
+							break;
+					}
+				} catch (InputMismatchException E) {
 					JOptionPane.showMessageDialog(null,
-				            "ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
-				} 
+							"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
 				}
-			
+			}
+
 		});
-		
+
 		this.ajouterPro.addActionListener(new ActionListener() {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
@@ -137,11 +137,12 @@ public class Accueil extends JFrame  implements Fenetre {
 
 		this.valider.addActionListener(new ActionListener() {
 			@Override
-			public  void actionPerformed(  ActionEvent e) {
-//				ProduitRequest.getInstance().InsertData(NomProduit.getText(), Reference.getText(), Stock.getText(), Prix.getText(), Description.getText());
+			public void actionPerformed(ActionEvent e) {
+				// ProduitRequest.getInstance().InsertData(NomProduit.getText(),
+				// Reference.getText(), Stock.getText(), Prix.getText(), Description.getText());
 			}
 		});
-		
+
 		this.consulter.addActionListener(new ActionListener() {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
@@ -168,6 +169,12 @@ public class Accueil extends JFrame  implements Fenetre {
 				CourbeEvolution.getInstance().openFrame();
 			}
 		});
+		this.commande.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AfficheCommande.getInstance();
+			}
+		});
 		panel.add(consulter);
 		panel.add(updatePro);
 		panel2.add(new JLabel(" "));
@@ -178,14 +185,14 @@ public class Accueil extends JFrame  implements Fenetre {
 		panel2.add(rechercher);
 		
 	}
-	
-//	fermer
-	public void Fermer_actionPerformed(ActionEvent e){
+
+	// fermer
+	public void Fermer_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
-	
+
 	private void background() {
-		JPanel pn=new JPanel();
+		JPanel pn = new JPanel();
 		pn.setLayout(null);
 		pn.setSize(500, 400);
 		pn.setBackground(new Color(198, 199, 192));
