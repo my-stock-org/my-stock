@@ -180,4 +180,8 @@ public class ProduitRequest {
 		}
 		return nbre;
 	}
+
+	public JTable AfficheCommande(JTable tb1, JPanel monpanel) {
+		return null;
+	}
 }

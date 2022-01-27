@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Choice;
 
 import Frame.Accueil;
@@ -60,7 +64,7 @@ public class CommandeRequest {
 					InsertData(ref, clientId, productId, total, date);
 					ProduitRequest.getInstance().UpdateQuantite(produitName, reste);
 					if (Caissier.getInstance() != null) {
-
+						CaissierRequest.getInstance().UpdateMontant(Caissier.getInstance().getNom(), total);
 					}
 				}
 			}
@@ -139,4 +143,87 @@ public class CommandeRequest {
 			e.printStackTrace();
 		}
 	}
+
+	public JTable AfficherCommande(JTable tb1, JPanel pn) {
+		DefaultTableModel df = new DefaultTableModel();
+		df.addColumn("# ");
+		df.addColumn("Reference ");
+		df.addColumn("Total ");
+		df.addColumn("Fait le");
+		df.addColumn("Modifié le   ");
+		tb1.setModel(df);
+		String sql = "select id,reference,total,create_at,update_at from commande";
+		try {
+			st = connection.createStatement();
+			result = st.executeQuery(sql);
+			while (result.next()) {
+				df.addRow(new Object[] {
+						result.getString("id"),
+						result.getString("reference"),
+						result.getString("total"),
+						result.getString("create_at"),
+						result.getString("update_at")
+				});
+			}
+		} catch (SQLException ex) {
+			System.out.println("Erreur lors de l'affichage");
+		}
+		return tb1;
+	}
+
+	public Choice SelectCommande(Choice nom) {
+		try {
+			st = connection.createStatement();
+			result = st.executeQuery("SELECT reference FROM commande");
+
+			while (result.next()) {
+				nom.add(result.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nom;
+	}
+
+	public void DeleteCommande(String ref) {
+		String sq = "DELETE FROM commande WHERE reference ='" + ref + "'";
+		try {
+			st = connection.createStatement();
+			int confirm = JOptionPane.showConfirmDialog(null,
+					"Voulez vous vraiment revoquer cette commande ?", "Annulation",
+					JOptionPane.INFORMATION_MESSAGE);
+			if (confirm == JOptionPane.YES_OPTION) {
+				CaissierRequest.getInstance().UpdateMontant(Caissier.getInstance().getNom(), GetPrice(ref));
+				st.executeUpdate(sq);
+				JOptionPane.showMessageDialog(null,
+						" Commande revoquée avec succès ?", "Succès",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, " Revocqtion impossible réessayer plus tard!", null,
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	public int GetPrice(String ref) {
+		int nbre = 0;
+		try {
+			st = connection.createStatement();
+			String sql = "SELECT total FROM commande WHERE reference ='" + ref + "'";
+			result = st.executeQuery(sql);
+			if (result.next()) {
+				nbre = result.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Erreur inattendue");
+		}
+		System.out.println(nbre);
+		return nbre;
+	}
+
 }
