@@ -31,7 +31,7 @@ public class Accueil extends JFrame implements Fenetre {
 	private static Accueil instance = null;
 	private Image image;
 	private JLabel nom, ref, stck, id, prix, desc;
-	private JButton fermer, valider, consulter, rechercher, commande, ajouterPro, updatePro;
+	private JButton fermer, valider, consulter, rechercher, commande, ajouterPro, updatePro, addCaissier;
 	private JTextField NomProduit, Reference, Stock, Prix, Description;
 
 	JPanel panel = new JPanel();
@@ -69,7 +69,7 @@ public class Accueil extends JFrame implements Fenetre {
 		this.setTitle("Accueil");
 		this.setSize(900, 600);
 		this.setLocationRelativeTo(null);
-		// this.setResizable(false);//pouvoir ou non redefinir la fenetre
+		this.setResizable(false);// pouvoir ou non redefinir la fenetre
 		this.setLocationRelativeTo(null);// position de la fenetre a l'ecran
 		this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
 
@@ -77,7 +77,7 @@ public class Accueil extends JFrame implements Fenetre {
 
 	public void proprieteEtiquette() {
 		JLabel label = new JLabel(" ");
-		label.setPreferredSize(new Dimension(600, 650));
+		label.setPreferredSize(new Dimension(580, 500));
 		Border lineborder = BorderFactory.createLoweredBevelBorder();
 		// associer � JLabel
 		label.setBorder(lineborder);
@@ -93,10 +93,11 @@ public class Accueil extends JFrame implements Fenetre {
 		fermer = new JButton("Quitter");
 		consulter = new JButton("Consulter Produit");
 		valider = new JButton("Valider");
-		rechercher = new JButton("Rechercher");
+		rechercher = new JButton("Evolution du systeme");
 		commande = new JButton("Commander");
 		ajouterPro = new JButton("Creer un produit");
 		updatePro = new JButton("Modifier un produit");
+		addCaissier = new JButton("Ajouter un caissier");
 
 		fermer.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 		// rechercher.setMargin(new Insets(10,10,10,10));
@@ -132,7 +133,7 @@ public class Accueil extends JFrame implements Fenetre {
 		this.ajouterPro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Produit.getInstance();
+				Produit.getInstance().openFrame();
 			}
 		});
 
@@ -147,15 +148,31 @@ public class Accueil extends JFrame implements Fenetre {
 		this.consulter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AfficherProduit.getInstance();
+				AfficherProduit.getInstance().openFrame();
 			}
 		});
+
+		this.addCaissier.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Caissier.getInstance();
+			}
+		});
+
+		this.rechercher.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CourbeEvolution.getInstance().openFrame();
+			}
+		});
+
 		this.commande.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AfficheCommande.getInstance();
 			}
 		});
+
 		panel.add(consulter);
 		// panel2.add(new JLabel(" "));
 		panel2.add(rechercher);
@@ -163,6 +180,7 @@ public class Accueil extends JFrame implements Fenetre {
 		panel2.add(commande);
 		panel2.add(ajouterPro);
 		panel2.add(updatePro);
+		panel2.add(addCaissier);
 
 	}
 

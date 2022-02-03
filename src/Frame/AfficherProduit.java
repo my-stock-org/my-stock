@@ -23,7 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
+import request.BdConnection;
 import request.ProduitRequest;
 
 public class AfficherProduit extends JFrame implements Fenetre {
@@ -33,6 +35,9 @@ public class AfficherProduit extends JFrame implements Fenetre {
 	private JTextField stock = new JTextField();
 	private Choice nomproduit = new Choice();
 	private Choice nomproduit1 = new Choice();
+	private JFrame frame = this;
+	Connection conn = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "")
+			.getConnection();
 
 	JLabel labelHead = new JLabel("Liste des produits");
 	JLabel label1 = new JLabel("Modifier la quantiter d'un produit");
@@ -93,7 +98,7 @@ public class AfficherProduit extends JFrame implements Fenetre {
 	public void proprieteFenetre() {
 		this.setTitle("Produits");
 		this.setSize(550, 400);
-		// this.setResizable(false);//pouvoir ou non redefinir la fenetre
+		this.setResizable(false);// pouvoir ou non redefinir la fenetre
 		this.setLocationRelativeTo(null);// position de la fenetre a l'ecran
 		this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,6 +124,9 @@ public class AfficherProduit extends JFrame implements Fenetre {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ProduitRequest.getInstance().Delete(nomproduit.getSelectedItem());
+				setVisible(false);
+				tb1 = ProduitRequest.getInstance().AfficherProduit(tb1, monpanel);
+				setVisible(true);
 			}
 		});
 		this.valider.addActionListener(new ActionListener() {
@@ -126,9 +134,16 @@ public class AfficherProduit extends JFrame implements Fenetre {
 			public void actionPerformed(ActionEvent e) {
 				ProduitRequest.getInstance().AjouterQuantite(nomproduit1.getSelectedItem(),
 						Integer.valueOf(stock.getText()));
+				setVisible(false);
+				tb1 = ProduitRequest.getInstance().AfficherProduit(tb1, monpanel);
+				setVisible(true);
 			}
 		});
 
+	}
+
+	public void openFrame() {
+		this.setVisible(true);
 	}
 
 	// fermer

@@ -1,6 +1,6 @@
 package Frame;
 
-import Proprietes.Caissier;
+import Proprietes.Caissiers;
 import Proprietes.Patron;
 import request.UserRequest;
 
@@ -21,7 +21,7 @@ public class LoginPage extends JFrame implements Fenetre, ActionListener {
 
 	private static LoginPage instance = null;
 	Patron patron = null;
-	Caissier caissier = null;
+	Caissiers caissier = null;
 	UserRequest requestUser = UserRequest.getInstance();
 
 	Container container = getContentPane();
