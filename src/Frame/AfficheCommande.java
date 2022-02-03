@@ -91,7 +91,7 @@ public class AfficheCommande extends JFrame implements Fenetre {
         // this.setResizable(false);//pouvoir ou non redefinir la fenetre
         this.setLocationRelativeTo(null);// position de la fenetre a l'ecran
         this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
@@ -117,6 +117,9 @@ public class AfficheCommande extends JFrame implements Fenetre {
         });
 
     }
+	public void openFrame() {
+		this.setVisible(true);
+	}
 
     // fermer
     public void Fermer_actionPerformed(ActionEvent e) {

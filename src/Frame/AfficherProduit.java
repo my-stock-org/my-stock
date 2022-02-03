@@ -95,10 +95,10 @@ public class AfficherProduit extends JFrame implements Fenetre {
 	public void proprieteFenetre() {
 		this.setTitle("Produits");
 		this.setSize(550, 400);
-		// this.setResizable(false);//pouvoir ou non redefinir la fenetre
+		 this.setResizable(false);//pouvoir ou non redefinir la fenetre
 		this.setLocationRelativeTo(null);// position de la fenetre a l'ecran
 		this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
 

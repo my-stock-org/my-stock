@@ -16,24 +16,24 @@ import javax.swing.border.EmptyBorder;
 import request.BdConnection;
 
 
-public class Caissier extends  JFrame  implements Fenetre {
+public class caissier extends  JFrame  implements Fenetre {
 	
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	//private JTextField textField_2;
 	private JTextField textField_3;
-	 private static Caissier instance = null;
+	 private static caissier instance = null;
 		// Constructeur de l'objet.
-		private Caissier() {
+		private caissier() {
 			super();
 			proprieteFenetre();
 		}
-		static Caissier getInstance() 
+		static caissier getInstance()
 		{
 			if (instance == null) 
 				{
-					instance = new Caissier();
+					instance = new caissier();
 				}
 			return instance;
 		}
@@ -41,6 +41,7 @@ public class Caissier extends  JFrame  implements Fenetre {
 		 public void proprieteFenetre(){
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(100, 100, 350, 280);
+			setLocationRelativeTo(null);// position de la fenetre a l'ecran
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -83,10 +84,11 @@ public class Caissier extends  JFrame  implements Fenetre {
 
 	                	 Connection connection = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection();
 	                	 
-	                	 Statement aj =  connection.createStatement(); 
+	                	 Statement aj =  connection.createStatement();
 	                	  aj.executeUpdate(req);
 	    
 	                	 JOptionPane.showMessageDialog(null, "caissier bien ajouter ");
+	                	  setVisible(false);
 
 	                 }catch(Exception e) {
 	                	 System.out.println("erreur"+e); 

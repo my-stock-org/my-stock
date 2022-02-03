@@ -8,22 +8,22 @@ public class Caissier  {
 	private String password;
 	
 	private Caissier( String name, String password,String telephone) {
-		
 		this.telephone = telephone;
 		this.name= name;
 		this.password=password;
-		
 	}
 	
 	private Caissier( ) {
 		super();
-		
-		
 	}
 	
 	public static Caissier getInstance( String name, String password,String telephone) {
 		if(instance == null)
 				instance = new Caissier( name, password, telephone);
+		return instance;
+	}
+	
+	public static Caissier getInstance() {
 		return instance;
 	}
 	

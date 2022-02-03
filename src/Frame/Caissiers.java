@@ -32,7 +32,7 @@ public class Caissiers extends  JFrame  implements Fenetre {
 		}
 	    
 		 public void proprieteFenetre(){
-				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				setBounds(100, 100, 450, 443);
 				contentPane = new JPanel();
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

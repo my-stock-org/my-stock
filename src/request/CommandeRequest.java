@@ -2,6 +2,7 @@ package request;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
@@ -124,12 +125,12 @@ public class CommandeRequest {
 					+ commande.getDateModification() + "')";
 
 			int confirm = JOptionPane.showConfirmDialog(null,
-					" La commande s'Ã©lÃ©ve Ã  " + commande.getTotal() + "FCFA\n Voulez vous la valider", "Validation",
+					" La commande s'élève a  " + commande.getTotal() + "FCFA\n Voulez vous la valider", "Validation",
 					JOptionPane.INFORMATION_MESSAGE);
 			if (confirm == JOptionPane.YES_OPTION) {
 				st.executeUpdate(sql);
 				JOptionPane.showMessageDialog(null,
-						" Commande validÃ©e avec succÃ¨s ?", "SuccÃ¨s",
+						" Commande validé avec succès ?", "Succès",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch (InputMismatchException E) {
@@ -150,7 +151,7 @@ public class CommandeRequest {
 		df.addColumn("Reference ");
 		df.addColumn("Total ");
 		df.addColumn("Fait le");
-		df.addColumn("ModifiÃ© le   ");
+		df.addColumn("Modifié le   ");
 		tb1.setModel(df);
 		String sql = "select id,reference,total,create_at,update_at from commande";
 		try {
@@ -169,6 +170,47 @@ public class CommandeRequest {
 			System.out.println("Erreur lors de l'affichage");
 		}
 		return tb1;
+	}
+	
+	public String[][] getCommande( ) {
+		String[][] donnees = null;
+		try {
+			
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM commande");
+			ResultSetMetaData metaData = resultSet.getMetaData();
+			String[] entetes=new String[metaData.getColumnCount()];
+			int j;
+				for(int i = 0; i<metaData.getColumnCount();i++){
+					j=i+1;
+					entetes[i]=metaData.getColumnName(j);
+				}
+		    int taille=0,k=0;
+		   
+		    while (resultSet.next()){
+		    	taille++;
+		    }
+		    Statement statement1 = connection.createStatement();
+			ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM commande");
+			ResultSetMetaData metaData1 = resultSet.getMetaData();
+			donnees=new String[taille][metaData.getColumnCount()];
+		    String[] tab=new String[metaData.getColumnCount()];
+			while (resultSet1.next()){
+				
+				for(int i = 0; i<metaData1.getColumnCount();i++){
+					j=i+1;
+					tab[i]=resultSet1.getString(j);
+					donnees[k][i]=tab[i];
+				}
+				k++;
+			}
+			return donnees;
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return donnees;
 	}
 
 	public Choice SelectCommande(Choice nom) {
@@ -194,16 +236,16 @@ public class CommandeRequest {
 					"Voulez vous vraiment revoquer cette commande ?", "Annulation",
 					JOptionPane.INFORMATION_MESSAGE);
 			if (confirm == JOptionPane.YES_OPTION) {
-				CaissierRequest.getInstance().UpdateMontant(Caissier.getInstance().getNom(), GetPrice(ref));
+				CaissierRequest.getInstance().UpdateMontant(Caissier.getInstance().getNom(), -GetPrice(ref));
 				st.executeUpdate(sq);
 				JOptionPane.showMessageDialog(null,
-						" Commande revoquÃ©e avec succÃ¨s ?", "SuccÃ¨s",
+						" Commande revoqué avec succès ?", "Succès",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, " Revocqtion impossible rÃ©essayer plus tard!", null,
+			JOptionPane.showMessageDialog(null, " Revocation impossible réssayer plus tard!", null,
 					JOptionPane.ERROR_MESSAGE);
 		}
 

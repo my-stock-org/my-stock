@@ -74,13 +74,10 @@ public class Welcome extends JFrame  implements Fenetre, ActionListener {
     public void actionPerformed(ActionEvent e) {
 	 this.dispose();
         if (e.getSource() == caissierButton) 
-        	LoginPage.getInstance("caissier");
+        	LoginPage.getInstance("caissier").openFrame();
         if (e.getSource() == patronButton) 
-        	LoginPage.getInstance("patron");
+        	LoginPage.getInstance("patron").openFrame();
         
-        	
-        
- 
     }
  
  public void setLayoutManager()
@@ -119,9 +116,8 @@ public void setLocationAndSize()
 	 patronButton.addActionListener(this);
   }
 
-public void proprieteButton() {
-	// TODO Auto-generated method stub
-	
-}
+	public void openFrame() {
+		this.setVisible(true);
+	}
  
 }

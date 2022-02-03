@@ -3,6 +3,7 @@ package request;
 import java.awt.Choice;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.InputMismatchException;
@@ -52,11 +53,11 @@ public class ClientRequest {
 
 			st.executeUpdate(sql);
 			JOptionPane.showMessageDialog(null,
-					" Client ajoutï¿½ avec succï¿½s", "SUCCES", JOptionPane.INFORMATION_MESSAGE);
+					" Client ajouté avec succès", "SUCCES", JOptionPane.INFORMATION_MESSAGE);
 
 		} catch (InputMismatchException E) {
 			JOptionPane.showMessageDialog(null,
-					"ERROR !!! verifier les donnes entrï¿½es", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
+					"ERROR !!! verifier les donnes entrées", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, " Validation impossible!", null, JOptionPane.ERROR_MESSAGE);
@@ -73,7 +74,7 @@ public class ClientRequest {
 			if (JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer ce client de l'entreprise?", null,
 					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 				st.executeUpdate(sq);
-				JOptionPane.showMessageDialog(null, "Supprï¿½ssion rï¿½ussie !");
+				JOptionPane.showMessageDialog(null, "Suppression réussie !");
 			}
 		} catch (InputMismatchException E) {
 			JOptionPane.showMessageDialog(null,
@@ -83,6 +84,46 @@ public class ClientRequest {
 			JOptionPane.showMessageDialog(null, " Impossible de supprimer !", null, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
+	}
+	public String[][] getClient( ) {
+		String[][] donnees = null;
+		try {
+			
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM client");
+			ResultSetMetaData metaData = resultSet.getMetaData();
+			String[] entetes=new String[metaData.getColumnCount()];
+			int j;
+				for(int i = 0; i<metaData.getColumnCount();i++){
+					j=i+1;
+					entetes[i]=metaData.getColumnName(j);
+				}
+		    int taille=0,k=0;
+		   
+		    while (resultSet.next()){
+		    	taille++;
+		    }
+		    Statement statement1 = connection.createStatement();
+			ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM client");
+			ResultSetMetaData metaData1 = resultSet.getMetaData();
+			donnees=new String[taille][metaData.getColumnCount()];
+		    String[] tab=new String[metaData.getColumnCount()];
+			while (resultSet1.next()){
+				
+				for(int i = 0; i<metaData1.getColumnCount();i++){
+					j=i+1;
+					tab[i]=resultSet1.getString(j);
+					donnees[k][i]=tab[i];
+				}
+				k++;
+			}
+			return donnees;
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return donnees;
 	}
 
 	public JTable ListClient(JTable tb1, JPanel pn) {

@@ -1,5 +1,6 @@
 package Frame;
 
+import Proprietes.Caissier;
 import Proprietes.Caissiers;
 import Proprietes.Patron;
 import request.UserRequest;
@@ -21,18 +22,18 @@ public class LoginPage extends JFrame implements Fenetre, ActionListener {
 
 	private static LoginPage instance = null;
 	Patron patron = null;
-	Caissiers caissier = null;
+	Caissier caissier = null;
 	UserRequest requestUser = UserRequest.getInstance();
 
 	Container container = getContentPane();
 
 	JLabel userLabel = new JLabel("Email");
-	JLabel telLabel = new JLabel("T�l�phone");
+	JLabel telLabel = new JLabel("Telephone");
 	JLabel passwordLabel = new JLabel("Mot de passe ");
 	JTextField userTextField = new JTextField();
 	JPasswordField passwordField = new JPasswordField();
 	JButton loginButton = new JButton("Connexion");
-	JButton cancelButton = new JButton("Annuler");
+	JButton cancelButton = new JButton("Fermer");
 	JCheckBox showPassword = new JCheckBox("voir le mot de passe");
 	ImageIcon background = new ImageIcon("img/vente.jpg");
 	ImageIcon background2 = new ImageIcon("img/avatar.png");
@@ -59,7 +60,7 @@ public class LoginPage extends JFrame implements Fenetre, ActionListener {
 	public void proprieteFenetre() {
 		this.setTitle("Connexion");
 		this.setVisible(true);
-		this.setBounds(10, 10, 370, 500);
+		this.setBounds(10, 10, 370, 420);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -83,18 +84,22 @@ public class LoginPage extends JFrame implements Fenetre, ActionListener {
 			telephone = userTextField.getText();
 			if (accountType == "patron") {
 				patron = requestUser.loginPatron(email, password);
-				CreateCommande.getInstance();
-				this.dispose();
+				if (patron.getInstance()!=null) {
+					Accueil.getInstance();
+					this.dispose();
+				}
 			} else {
 				caissier = requestUser.loginCaissier(telephone, password);
-				CreateCommande.getInstance();
-				this.dispose();
+				if (caissier.getInstance()!=null) {
+					Accueil.getInstance();
+					this.dispose();
+				}
 			}
-
 		}
+		
 		if (e.getSource() == cancelButton) {
 			this.dispose();
-			Welcome.getInstance();
+			Welcome.getInstance().openFrame();
 		}
 		if (e.getSource() == showPassword)
 			if (showPassword.isSelected())
@@ -167,9 +172,7 @@ public class LoginPage extends JFrame implements Fenetre, ActionListener {
 		showPassword.addActionListener(this);
 	}
 
-	public void proprieteButton() {
-		// TODO Auto-generated method stub
-
+	public void openFrame() {
+		this.setVisible(true);
 	}
-
 }

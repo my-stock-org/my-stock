@@ -22,8 +22,8 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 
 	JLabel clientLabel = new JLabel("Client");
 	JLabel productLabel = new JLabel("Produit");
-	JLabel qteLabel = new JLabel("QuantitÃ© ");
-	JLabel refLabel = new JLabel("RefÃ©rence ");
+	JLabel qteLabel = new JLabel("Quantité ");
+	JLabel refLabel = new JLabel("Reférence ");
 	JTextField refField = new JTextField();
 	JTextField qteField = new JTextField();
 	JButton validateBtn = new JButton("Valider");
@@ -31,7 +31,6 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 	JButton clientBtn = new JButton("Nouveau Client");
 
 	private CreateCommande() {
-
 		nomClient = ClientRequest.getInstance().SelectClient(nomClient);
 		nomProduit = ProduitRequest.getInstance().SelectProduit(nomProduit);
 
@@ -53,7 +52,7 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 		this.setTitle("Creation commande");
 		this.setVisible(true);
 		this.setBounds(10, 10, 650, 400);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
@@ -120,6 +119,9 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 		clientBtn.addActionListener(this);
 	}
 
+	public void openFrame() {
+		this.setVisible(true);
+	}
 	public void proprieteButton() {
 		// TODO Auto-generated method stub
 
