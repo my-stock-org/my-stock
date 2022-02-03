@@ -33,7 +33,7 @@ public class LoginPage extends JFrame implements Fenetre, ActionListener {
 	JTextField userTextField = new JTextField();
 	JPasswordField passwordField = new JPasswordField();
 	JButton loginButton = new JButton("Connexion");
-	JButton cancelButton = new JButton("Fermer");
+	JButton cancelButton = new JButton("Annuler");
 	JCheckBox showPassword = new JCheckBox("voir le mot de passe");
 	ImageIcon background = new ImageIcon("img/vente.jpg");
 	ImageIcon background2 = new ImageIcon("img/avatar.png");

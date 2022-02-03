@@ -140,8 +140,10 @@ CREATE TABLE IF NOT EXISTS `produit` (
 --
 
 INSERT INTO `produit` (`id`, `reference`, `nom`, `stock`, `prix`, `description`, `id_patron`) VALUES
-(2, 'xx1', 'Nestle', -470, 500, 'Laie en boite ', 1),
-(3, 'xx50', 'Elena', 184, 100, 'Tomate en sachet', 1);
+(2, 'xx1', 'Nestle', 70, 500, 'Laie en boite ', 1),
+(3, 'xx2', 'Cafe', 15, 500, 'Laie en boite ', 2),
+(4, 'xx3', 'Tomate', 230, 500, 'Laie en boite ', 1),
+(5, 'xx4', 'Elena', 184, 100, 'Tomate en sachet', 2);
 
 --
 -- Contraintes pour les tables déchargées
