@@ -3,52 +3,52 @@ package Proprietes;
 public class Clients {
 	private int id, idPatron;
 	private String nom, telephone, addresse;
-	static Clients instance = null;
-
+	static Clients instance=null;
+	
 	private Clients(String nom, String telephone, String addresse, int idP) {
 		this.nom = nom;
 		this.telephone = telephone;
 		this.addresse = addresse;
-		this.id = idP;
-
+		this.id= idP;
+		
 	}
-
-	public static Clients getInstance(String nom, String telephone, String addresse, int idPatron) {
-		if (instance == null)
+	public static Clients getInstance(String nom, String telephone,String addresse, int idPatron){
+		if(instance == null)
 			instance = new Clients(nom, telephone, addresse, idPatron);
 		return instance;
 	}
-
-	public String getNom() {
+	
+	public String getNom(){
 		return nom;
 	}
-
+	
 	public String getTelephone() {
 		return telephone;
 	}
-
+	
 	public String getAddresse() {
 		return addresse;
 	}
-
+	
 	public int getPatronId() {
 		return idPatron;
 	}
-
+	
+	public void setNom(String name) {
+		this.nom = name;
+	}
+	
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-
+	
 	public void setAddresse(String addr) {
-		this.addresse = addr;
+		this.addresse= addr;
 	}
-
+	
 	public void setIdPatron(int id) {
-		this.idPatron = id;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
+		this.idPatron= id;
+	}	    
+    
 }
+

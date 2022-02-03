@@ -1,30 +1,65 @@
 package Proprietes;
 
-public class Caissier extends User {
-	static Caissier instance = null;
+public class Caissier  {
+	static Caissier instance= null;
 	private String telephone;
-
-	private Caissier(int id, String nom, String password, String telephone) {
-		super(id, nom, password);
+	int id;
+	private String name;
+	private String password;
+	
+	private Caissier( String name, String password,String telephone) {
 		this.telephone = telephone;
+		this.name= name;
+		this.password=password;
 	}
-
-	public static Caissier getInstance(int id, String nom, String password, String email) {
-		if (instance == null)
-			instance = new Caissier(id, nom, password, email);
+	
+	private Caissier( ) {
+		super();
+	}
+	
+	public static Caissier getInstance( String name, String password,String telephone) {
+		if(instance == null)
+				instance = new Caissier( name, password, telephone);
 		return instance;
 	}
-
+	
 	public static Caissier getInstance() {
 		return instance;
 	}
-
-	String getTelephone() {
+	
+	public int getId() {
+		return this.id;
+		
+	}
+	
+	public String getNom() {
+		return this.name;
+		
+	}
+	
+	public String getPassword() {
+		return this.password;
+		
+	}
+	
+	
+	public String getTelephone() {
 		return this.telephone;
 	}
-
-	void setTelephone(String tel) {
-		this.telephone = tel;
+	
+	public void setPassword(String password) {
+		this.password=password;
+	}
+	
+	public void setNom(String name) {
+		this.name=name;
+	}
+	public void setId(int id) {
+		this.id=id;
+	}
+	
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 }

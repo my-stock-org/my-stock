@@ -76,6 +76,9 @@ public class ProduitRequest {
 					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 				st.executeUpdate(sq);
 				JOptionPane.showMessageDialog(null, "Suppr�ssion r�ussie !");
+				// dispose();
+				// Produit_crud pr=new Produit_crud();
+				// pr.setVisible(true);
 			}
 		} catch (InputMismatchException E) {
 			JOptionPane.showMessageDialog(null,
@@ -103,22 +106,33 @@ public class ProduitRequest {
 					"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+
 			JOptionPane.showMessageDialog(null, " Impossible de mettre a jour cette valeur !", null,
 					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+	}
+
+	public void UpdateQuantite(String nom, int qte) {
+		try {
+			String sq = "update produit set stock=+'" + qte + "' where nom='" + nom + "'";
+			st = conn.createStatement();
+			st.executeUpdate(sq);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public JTable AfficherProduit(JTable tb1, JPanel pn) {
+		DefaultTableModel df = new DefaultTableModel();
+		df.addColumn("Nom ");
+		df.addColumn("Reference ");
+		df.addColumn("Quantite ");
+		df.addColumn("Prix ($)");
+		df.addColumn("Description   ");
+		tb1.setModel(df);
+		String sql = "select nom,reference,stock,prix,description from produit";
 		try {
-			DefaultTableModel df = new DefaultTableModel();
-			df.addColumn("Nom ");
-			df.addColumn("Reference ");
-			df.addColumn("Quantite ");
-			df.addColumn("Prix ($)");
-			df.addColumn("Description   ");
-			tb1.setModel(df);
-			String sql = "select nom,reference,stock,prix,description from produit";
-
 			st = conn.createStatement();
 			rst = st.executeQuery(sql);
 			while (rst.next()) {
@@ -130,10 +144,8 @@ public class ProduitRequest {
 						rst.getString("description")
 				});
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, " Impossible d'afficher la liste de produit !", null,
-					JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException ex) {
+
 		}
 		return tb1;
 	}
@@ -152,41 +164,41 @@ public class ProduitRequest {
 		}
 		return nom;
 	}
-
-	public String[][] getProduit() {
+	
+	public String[][] getProduit( ) {
 		String[][] donnees = null;
 		try {
-
+			
 			Statement statement = conn.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM produit");
 			ResultSetMetaData metaData = resultSet.getMetaData();
-			String[] entetes = new String[metaData.getColumnCount()];
+			String[] entetes=new String[metaData.getColumnCount()];
 			int j;
-			for (int i = 0; i < metaData.getColumnCount(); i++) {
-				j = i + 1;
-				entetes[i] = metaData.getColumnName(j);
-			}
-			int taille = 0, k = 0;
-
-			while (resultSet.next()) {
-				taille++;
-			}
-			Statement statement1 = conn.createStatement();
+				for(int i = 0; i<metaData.getColumnCount();i++){
+					j=i+1;
+					entetes[i]=metaData.getColumnName(j);
+				}
+		    int taille=0,k=0;
+		   
+		    while (resultSet.next()){
+		    	taille++;
+		    }
+		    Statement statement1 = conn.createStatement();
 			ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM produit");
 			ResultSetMetaData metaData1 = resultSet.getMetaData();
-			donnees = new String[taille][metaData.getColumnCount()];
-			String[] tab = new String[metaData.getColumnCount()];
-			while (resultSet1.next()) {
-
-				for (int i = 0; i < metaData1.getColumnCount(); i++) {
-					j = i + 1;
-					tab[i] = resultSet1.getString(j);
-					donnees[k][i] = tab[i];
+			donnees=new String[taille][metaData.getColumnCount()];
+		    String[] tab=new String[metaData.getColumnCount()];
+			while (resultSet1.next()){
+				
+				for(int i = 0; i<metaData1.getColumnCount();i++){
+					j=i+1;
+					tab[i]=resultSet1.getString(j);
+					donnees[k][i]=tab[i];
 				}
 				k++;
 			}
 			return donnees;
-
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,4 +206,24 @@ public class ProduitRequest {
 		return donnees;
 	}
 
+	public int getProducId(String name) {
+		int nbre = 0;
+		try {
+			st = conn.createStatement();
+			String req = "SELECT id FROM produit WHERE nom ='" + name + "'";
+			rst = st.executeQuery(req);
+
+			if (rst.next()) {
+				nbre = rst.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nbre;
+	}
+
+	public JTable AfficheCommande(JTable tb1, JPanel monpanel) {
+		return null;
+	}
 }

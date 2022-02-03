@@ -71,8 +71,6 @@ public class Produit extends JFrame  implements Fenetre {
 		this.setResizable(false); //pouvoir ou non redefinir la fenetre
 		this.setLocationRelativeTo(null); //position de la fenetre a l'ecran
 		this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
-		
-		
 	}
 	 
 	private JLabel nom,ref,stck,prix,desc;

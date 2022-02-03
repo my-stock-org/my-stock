@@ -3,6 +3,7 @@ package Frame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -24,20 +25,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import Proprietes.Caissier;
+import Proprietes.Patron;
+import request.CaissierRequest;
 import request.ProduitRequest;
 
-public class Accueil extends JFrame implements Fenetre {
+public class Accueil extends JFrame  implements Fenetre {
+	
+    private static Accueil instance = null;
+    private Image image;
+    private String montant="0";
+	private JLabel nom,ref,stck,id,prix,desc,lab;
+	private JButton fermer,valider,consulter,rechercher,commande,consultCommande,ajouterPro,updatePro,addCaissier;
+	private JTextField NomProduit,Reference,Stock,Prix,Description;
 
-	private static Accueil instance = null;
-	private Image image;
-	private JLabel nom, ref, stck, id, prix, desc;
-	private JButton fermer, valider, consulter, rechercher, commande, ajouterPro, updatePro, addCaissier;
-	private JTextField NomProduit, Reference, Stock, Prix, Description;
-
-	JPanel panel = new JPanel();
-	JPanel panel2 = new JPanel();
-	JPanel panel3 = new JPanel();
-
+    JPanel panel=new JPanel();
+    JPanel panel2=new JPanel();
+    JPanel panel3=new JPanel();
 	// Constructeur de l'objet.
 	private Accueil() {
 		super();
@@ -67,38 +71,37 @@ public class Accueil extends JFrame implements Fenetre {
 
 	public void proprieteFenetre() {
 		this.setTitle("Accueil");
-		this.setSize(900, 600);
+		this.setSize(950, 600);
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);// pouvoir ou non redefinir la fenetre
-		this.setLocationRelativeTo(null);// position de la fenetre a l'ecran
+		this.setResizable(false);//pouvoir ou non redefinir la fenetre
+		this.setLocationRelativeTo(null);//position de la fenetre a l'ecran
 		this.setDefaultLookAndFeelDecorated(rootPaneCheckingEnabled);
-
 	}
 
 	public void proprieteEtiquette() {
-		JLabel label = new JLabel(" ");
-		label.setPreferredSize(new Dimension(580, 500));
-		Border lineborder = BorderFactory.createLoweredBevelBorder();
-		// associer � JLabel
-		label.setBorder(lineborder);
-		panel3.add(new JLabel("Effectuer toutes vos transaction avec assurance"));
-		panel3.add(label);
-
-		this.getContentPane().setLayout(new BorderLayout());
-
+		lab = new JLabel(" ");
+	    lab.setPreferredSize(new Dimension(550, 500));
+	    Border lineborder = BorderFactory.createLoweredBevelBorder();
+	    //associer � JLabel
+	    lab.setBorder(lineborder);
+	    panel3.add(new JLabel("Effectuer toutes vos transactions avec assurance"));
+	    panel3.add(lab);
+	    
+	    this.getContentPane().setLayout(new BorderLayout());
 		panel.add(new JLabel(" "));
 	}
 
 	public void proprieteButton() {
-		fermer = new JButton("Quitter");
-		consulter = new JButton("Consulter Produit");
-		valider = new JButton("Valider");
-		rechercher = new JButton("Evolution du systeme");
-		commande = new JButton("Commander");
-		ajouterPro = new JButton("Creer un produit");
-		updatePro = new JButton("Modifier un produit");
-		addCaissier = new JButton("Ajouter un caissier");
-
+		fermer =new JButton("Quitter");
+		consulter =new JButton("Consulter les produits");
+		valider =new JButton("Valider");
+		rechercher =new JButton("Evolution du systeme");
+		commande =new JButton("Commander");
+		ajouterPro =new JButton("Creer un produit");
+		updatePro =new JButton("Consulter les caissiers");
+		consultCommande =new JButton("Consulter les commandes");
+		addCaissier =new JButton("Ajouter un caissier");
+		
 		fermer.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 		// rechercher.setMargin(new Insets(10,10,10,10));
 		// consulter.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -132,7 +135,7 @@ public class Accueil extends JFrame implements Fenetre {
 
 		this.ajouterPro.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public  void actionPerformed(  ActionEvent e) {
 				Produit.getInstance().openFrame();
 			}
 		});
@@ -147,41 +150,65 @@ public class Accueil extends JFrame implements Fenetre {
 
 		this.consulter.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public  void actionPerformed(  ActionEvent e) {
 				AfficherProduit.getInstance().openFrame();
 			}
 		});
-
-		this.addCaissier.addActionListener(new ActionListener() {
+		
+		this.updatePro.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				Caissier.getInstance();
+			public  void actionPerformed(  ActionEvent e) {
+				AfficheCaissier.getInstance().openFrame();
 			}
 		});
-
+		
+		this.addCaissier.addActionListener(new ActionListener() {
+			@Override
+			public  void actionPerformed(  ActionEvent e) {
+				caissier.getInstance().openFrame();
+			}
+		});
 		this.rechercher.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public  void actionPerformed(  ActionEvent e) {
 				CourbeEvolution.getInstance().openFrame();
 			}
 		});
-
 		this.commande.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AfficheCommande.getInstance();
+				CreateCommande.getInstance().openFrame();
 			}
 		});
-
+		this.consultCommande.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AfficheCommande.getInstance().openFrame();
+			}
+		});
+		panel.add(consultCommande);
 		panel.add(consulter);
-		// panel2.add(new JLabel(" "));
-		panel2.add(rechercher);
+		if (Patron.getInstance() != null && Caissier.getInstance() == null) {
+			panel.add(updatePro);
+		}
+
+		if (Caissier.getInstance() != null) {
+			montant=CaissierRequest.getInstance().currentCaissier(Caissier.getInstance().getId());
+		}
+		lab.setText("Total vendu: "+montant+"FCFA");
+		lab.setFont(new Font("Arial", Font.TRUETYPE_FONT, 30).deriveFont(Font.BOLD | Font.ITALIC));
+		lab.setBackground(new Color(18, 199, 192));
+//		lab.setForeground(Color.BLUE);
+		
+		panel2.add(new JLabel(" "));
 		panel.add(fermer);
 		panel2.add(commande);
-		panel2.add(ajouterPro);
-		panel2.add(updatePro);
-		panel2.add(addCaissier);
-
+		if (Patron.getInstance() != null && Caissier.getInstance() == null) {
+			panel2.add(ajouterPro);
+			panel2.add(addCaissier);
+			panel2.add(rechercher);
+		}
+		
 	}
 
 	// fermer
@@ -195,5 +222,11 @@ public class Accueil extends JFrame implements Fenetre {
 		pn.setSize(500, 400);
 		pn.setBackground(new Color(198, 199, 192));
 		panel3.add(pn);
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		Fenetre produit = Accueil.getInstance();
+		Fenetre welcome = Welcome.getInstance();
 	}
 }

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import Frame.Accueil;
+import Proprietes.Caissier;
 import Proprietes.Caissiers;
 import Proprietes.Patron;
 
@@ -41,19 +42,20 @@ public class UserRequest {
 				String nom = result.getString("nom");
 				int id = result.getInt("id");
 				pat = Patron.getInstance(id, nom, password, email);
-				Accueil.getInstance();
-			} else
+				return pat;
+			} else {
 				JOptionPane.showMessageDialog(null,
 						"Email ou mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
-
+				
+				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return pat;
+		return Patron.getInstance();
 	}
 
-	public Caissiers loginCaissier(String telephone, String password) {
-		Caissiers caiss = null;
+	public Caissier loginCaissier(String telephone, String password) {
+		Caissier caiss = null;
 		String sqlR = "Select * from caissier where telephone='" + telephone + "' and password='" + password + "'";
 		try {
 			st = connection.createStatement();
@@ -62,8 +64,9 @@ public class UserRequest {
 			if (result.next()) {
 				String nom = result.getString("nom");
 				int id = result.getInt("id");
-				caiss = Caissiers.getInstance(nom, password, telephone);
-				Accueil.getInstance();
+				caiss = Caissier.getInstance(nom, password, telephone);
+				caiss.setId(id);
+				return caiss;
 			} else
 				JOptionPane.showMessageDialog(null,
 						"Telephone ou mot de passe invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
@@ -71,7 +74,7 @@ public class UserRequest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return caiss;
+		return Caissier.getInstance();
 	}
 
 }
