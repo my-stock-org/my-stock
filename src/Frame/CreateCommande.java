@@ -34,11 +34,11 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 		nomClient = ClientRequest.getInstance().SelectClient(nomClient);
 		nomProduit = ProduitRequest.getInstance().SelectProduit(nomProduit);
 
+		proprieteFenetre();
 		setLayoutManager();
 		setLocationAndSize();
 		addComponentsToContainer();
 		addActionEvent();
-		proprieteFenetre();
 
 	}
 
@@ -50,12 +50,10 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 
 	public void proprieteFenetre() {
 		this.setTitle("Creation commande");
-		this.setVisible(true);
-		this.setBounds(10, 10, 650, 400);
+		this.setSize(570, 350);
 //		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-
 		this.setVisible(true);
 	}
 
@@ -68,15 +66,20 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 			// System.out.println(nomClient.getSelectedItem() + "," +
 			// nomProduit.getSelectedItem());
 			System.out.println(requestProduit.getProducId(nomProduit.getSelectedItem()));
-			CommandeRequest.getInstance().createCommande(refField.getText(), nomClient.getSelectedItem(),
-					nomProduit.getSelectedItem(),
-					qteField.getText());
+			try {
+				CommandeRequest.getInstance().createCommande(refField.getText(), nomClient.getSelectedItem(),
+						nomProduit.getSelectedItem(),
+						qteField.getText());
+			} catch (Exception e2) {
+				// TODO: handle exception
+				JOptionPane.showMessageDialog(null,
+						"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);		
+			}
 		}
 		if (e.getSource() == clientBtn) {
 			this.dispose();
-			Client.getInstance();
+			Client.getInstance().openFrame();
 		}
-
 	}
 
 	public void setLayoutManager() {
@@ -87,15 +90,14 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 		refLabel.setBounds(50, 40, 100, 30);
 		refField.setBounds(160, 40, 300, 30);
 		clientLabel.setBounds(50, 80, 100, 30);
-		nomClient.setBounds(160, 80, 300, 30);
-		clientBtn.setBounds(470, 80, 150, 30);
+		nomClient.setBounds(160, 80, 140, 30);
+		clientBtn.setBounds(310, 80, 150, 28);
 		productLabel.setBounds(50, 120, 100, 30);
 		nomProduit.setBounds(160, 120, 300, 30);
 		qteLabel.setBounds(50, 160, 100, 30);
 		qteField.setBounds(160, 160, 300, 30);
-		validateBtn.setBounds(50, 250, 100, 30);
-		cancelBtn.setBounds(300, 250, 100, 30);
-
+		validateBtn.setBounds(100, 220, 100, 30);
+		cancelBtn.setBounds(300, 220, 100, 30);
 	}
 
 	public void addComponentsToContainer() {
@@ -122,8 +124,5 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 	public void openFrame() {
 		this.setVisible(true);
 	}
-	public void proprieteButton() {
-		// TODO Auto-generated method stub
-
-	}
+	
 }

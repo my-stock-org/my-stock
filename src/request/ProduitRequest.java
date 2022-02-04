@@ -55,7 +55,6 @@ public class ProduitRequest {
 					+ produit.getStock() + "," + produit.getPrix() + ",'" + produit.getDescription() + "'," + 1 + ")";
 
 			st.executeUpdate(sql);
-			System.out.println("Success");
 
 		} catch (InputMismatchException E) {
 			JOptionPane.showMessageDialog(null,
@@ -75,7 +74,7 @@ public class ProduitRequest {
 			if (JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer ?", null,
 					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 				st.executeUpdate(sq);
-				JOptionPane.showMessageDialog(null, "Supprï¿½ssion rï¿½ussie !");
+				JOptionPane.showMessageDialog(null, "Suppréssion réussie !");
 				// dispose();
 				// Produit_crud pr=new Produit_crud();
 				// pr.setVisible(true);
@@ -95,7 +94,7 @@ public class ProduitRequest {
 			String sq = "update produit set stock=stock+'" + quantite + "' where nom='" + nom + "'";
 
 			st = conn.createStatement();
-			if (JOptionPane.showConfirmDialog(null, "Voulez-vous ajoutez la quantitï¿½ de ce produit?", null,
+			if (JOptionPane.showConfirmDialog(null, "Voulez-vous ajoutez la quantité de ce produit?", null,
 					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 				st.executeUpdate(sq);
 				JOptionPane.showMessageDialog(null, "Ajout reussie !");

@@ -194,10 +194,10 @@ public class Accueil extends JFrame  implements Fenetre {
 
 		if (Caissier.getInstance() != null) {
 			montant=CaissierRequest.getInstance().currentCaissier(Caissier.getInstance().getId());
+			lab.setText("Total vendu: "+montant+"FCFA");
+			lab.setFont(new Font("Arial", Font.TRUETYPE_FONT, 30).deriveFont(Font.BOLD | Font.ITALIC));
+			lab.setBackground(new Color(18, 199, 192));
 		}
-		lab.setText("Total vendu: "+montant+"FCFA");
-		lab.setFont(new Font("Arial", Font.TRUETYPE_FONT, 30).deriveFont(Font.BOLD | Font.ITALIC));
-		lab.setBackground(new Color(18, 199, 192));
 //		lab.setForeground(Color.BLUE);
 		
 		panel2.add(new JLabel(" "));
@@ -226,7 +226,7 @@ public class Accueil extends JFrame  implements Fenetre {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		Fenetre produit = Accueil.getInstance();
-		Fenetre welcome = Welcome.getInstance();
+		Fenetre produit = Accueil.getInstance();
+//		Fenetre welcome = Welcome.getInstance();
 	}
 }

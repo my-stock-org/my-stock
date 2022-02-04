@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import request.BdConnection;
+import request.CommandeRequest;
 
 
 public class caissier extends  JFrame  implements Fenetre {
@@ -80,16 +81,21 @@ public class caissier extends  JFrame  implements Fenetre {
 			CreerButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent argo) {
 	                 try {
-	                	 String req =" insert into caissier( nom, password, telephone) values ('"+textField.getText()+"','"+textField_1.getText()+"' ,'"+textField_3.getText()+"') ";
-
-	                	 Connection connection = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection();
+	         			if(textField.getText().length()<1 || textField_3.getText().length()<1 || textField_1.getText().length()<1) {
+	         				JOptionPane.showMessageDialog(null,
+	         						"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);	         				
+	         			} else {	         				
+	         				String req =" insert into caissier( nom, password, telephone) values ('"+textField.getText()+"','"+textField_1.getText()+"' ,'"+textField_3.getText()+"') ";
+	         				
+	         				Connection connection = BdConnection.getInstance("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mystock", "root", "").getConnection();
+	         				
+	         				Statement aj =  connection.createStatement();
+	         				aj.executeUpdate(req);
+	         				
+	         				JOptionPane.showMessageDialog(null, "caissier bien ajouter ");
+	         				setVisible(false);
+	         			}
 	                	 
-	                	 Statement aj =  connection.createStatement();
-	                	  aj.executeUpdate(req);
-	    
-	                	 JOptionPane.showMessageDialog(null, "caissier bien ajouter ");
-	                	  setVisible(false);
-
 	                 }catch(Exception e) {
 	                	 System.out.println("erreur"+e); 
 	                 }

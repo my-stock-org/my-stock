@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.Statement;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Proprietes.Patron;
+import request.BdConnection;
 import request.ClientRequest;
 
 public class Client extends JFrame  implements Fenetre {
@@ -80,7 +83,7 @@ public class Client extends JFrame  implements Fenetre {
 		this.addresseClient.setBounds(160, 110, 200, 20);
 		this.add(addresseClient);
 		
-		this.resetField();
+//		this.resetField();
 		
 	}
 	
@@ -99,7 +102,6 @@ public class Client extends JFrame  implements Fenetre {
 		addr.setFont(myfont);
 		this.add(addr);
 		
-
 		nom.setForeground(Color.WHITE);
 		tel.setForeground(Color.WHITE);
 		addr.setForeground(Color.WHITE);
@@ -124,7 +126,15 @@ public class Client extends JFrame  implements Fenetre {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
 				try {
-					ClientRequest.getInstance().createClient(nomClient.getText(),addresseClient.getText(),telephoneClient.getText(),1);
+
+         			if(nomClient.getText().length()<1 || addresseClient.getText().length()<1 || telephoneClient.getText().length()<1) {
+         				JOptionPane.showMessageDialog(null,
+         						"ERROR !!! verifier les donnes entres", "Erreur fatale", JOptionPane.ERROR_MESSAGE);	         				
+         			} else {	    
+         				ClientRequest.getInstance().createClient(nomClient.getText(),addresseClient.getText(),telephoneClient.getText(),1);
+         				CreateCommande.getInstance().openFrame();
+         				setVisible(false);
+         			}
 				} catch (Exception e2) {
 					// TODO: handle exception
 					JOptionPane.showMessageDialog(null,"Impossible d'ajouter cet element !",null,JOptionPane.ERROR_MESSAGE);
@@ -133,6 +143,9 @@ public class Client extends JFrame  implements Fenetre {
 			}
 		});
 		
+	}
+	public void openFrame() {
+		this.setVisible(true);
 	}
 	
 //fermer
