@@ -1,6 +1,6 @@
 # MyStock
 
-    Il s'agit d'une plateforme de gestion des commerciale
+    Il s'agit d'une plateforme de gestion  commerciale proposant divers services comme la validation des commandes, la creation de produits, la creation des comptes du personnels (caissiers,...)
 
 ## Sommaire
 
@@ -9,13 +9,9 @@
 3. [Installation](#installation)
 
 ## Informations Générales
-
-<a name="general-info"></a>
-Dans le cadre de notre projet d'architecture logiciel nous avons mis sur pied un logicile de gestion de vente
+Dans le cadre de notre projet d'architecture logiciel nous avons mis sur pied un logicile de gestion commerciale
 
 ## Technologies
-
-<a name="general-info"></a>
 Pour mettre sur pied cette platforme nous utilisons:
 
 - [Java](https://docs.oracle.com/javase/7/docs/api/)
