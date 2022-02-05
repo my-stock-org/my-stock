@@ -112,6 +112,8 @@ public class AfficheCommande extends JFrame implements Fenetre {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CommandeRequest.getInstance().DeleteCommande(nomproduit1.getSelectedItem());
+				setVisible(false);
+				setVisible(true);
             }
 
         });

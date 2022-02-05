@@ -165,6 +165,7 @@ public class Produit extends JFrame  implements Fenetre {
 			public  void actionPerformed(  ActionEvent e) {
 				try {
 					ProduitRequest.getInstance().InsertData(NomProduit.getText(), Reference.getText(), Stock.getText(), Prix.getText(), Description.getText());
+					setVisible(false);
 				} catch (Exception e2) {
 					// TODO: handle exception
 					JOptionPane.showMessageDialog(null," Impossible d'ajouter cet element !",null,JOptionPane.ERROR_MESSAGE);

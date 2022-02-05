@@ -113,12 +113,16 @@ public class AfficheCaissier extends JFrame  implements Fenetre {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
 				CaissierRequest.getInstance().Delete(nomCaissier.getSelectedItem());
+				setVisible(false);
+				setVisible(true);
 			}
 		});
 		this.valider.addActionListener(new ActionListener() {
 			@Override
 			public  void actionPerformed(  ActionEvent e) {
 			CaissierRequest.getInstance().AjouterMontant(nomCaissier1.getSelectedItem(),Integer.valueOf(caisse.getText()));
+			setVisible(false);
+			setVisible(true);
 			}
 		});
 		

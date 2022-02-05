@@ -226,7 +226,7 @@ public class Accueil extends JFrame  implements Fenetre {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Fenetre produit = Accueil.getInstance();
-//		Fenetre welcome = Welcome.getInstance();
+//		Fenetre produit = Accueil.getInstance();
+		Fenetre welcome = Welcome.getInstance();
 	}
 }

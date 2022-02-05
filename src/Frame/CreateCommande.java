@@ -70,6 +70,7 @@ public class CreateCommande extends JFrame implements Fenetre, ActionListener {
 				CommandeRequest.getInstance().createCommande(refField.getText(), nomClient.getSelectedItem(),
 						nomProduit.getSelectedItem(),
 						qteField.getText());
+				setVisible(false);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				JOptionPane.showMessageDialog(null,
