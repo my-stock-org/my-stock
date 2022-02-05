@@ -25,5 +25,7 @@ Pour mettre sur pied cette platforme nous utilisons:
 Après avoir cloné le projet il faut :
 
 ```
-$ Importer la base de donné
+$ Importer la base de donné le fichier mystock.sql
+$ Ouvrir le dossier projet mystock avec eclipse ou vscode
+$ Cliquer sur executer ou F5
 ```
